@@ -6,7 +6,7 @@ class Character extends MoveableObject {
   y = 0;
   // camera_x = -100;
   ammo = 40;
-  coins = 0;
+  coins = 30;
 
   IMAGES_IDLE = [
     "../img/2_character_pepe/1_idle/idle/I-1.png",

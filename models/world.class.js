@@ -27,7 +27,8 @@ class World {
 
   run() {
     this.drawBottles(40);
-    this.drawCoins(40);
+    this.drawCoins(10);
+    // this.drawCoins(10);
     setInterval(() => {
       this.checkCollisions();
       this.checkCollect();
@@ -44,17 +45,27 @@ class World {
   }
 
   drawCoins(amount) {
-    let y = 250;
-    for (let i = 0; i < amount; i++) {    
-      if (i<amount/2) {
-        y -= 10;
-      }
-      else {
-        y += 10;
-      }
-      let coin = new Coins(y);
+    let xPosition = 50 + Math.random() * 600;
+    xPosition = Math.trunc(xPosition / 80) * 40;
+    let y = 280;
+    let speedY = 50;
+    let acceleration = 10;
+
+    let x = xPosition;
+    for (let i = 0; i < amount; i++) {
+      x += 40;
+      // if (speedY >=0) {
+        // console.log(y, speedY);
+        y -= speedY;
+        speedY -= acceleration;
+      // }
+      //  else {
+      //   y += speedY;
+      //   speedY += acceleration;
+      // }
+
+      let coin = new Coins(y, x);
       this.coins.push(coin);
-      
     }
   }
 
@@ -90,7 +101,7 @@ class World {
     for (let i = 0; i < this.coins.length; i++) {
       const enemy = this.coins[i];
       if (this.character.isColliding(enemy)) {
-        this.coins.splice(i , 1);
+        this.coins.splice(i, 1);
         this.coinBar.setCoins(this.character.coins++);
       }
     }
@@ -107,10 +118,11 @@ class World {
     this.addObjectsToMap(this.throwableObjects);
 
     this.ctx.translate(-this.camera_x, 0);
-    // Space for fixed objects
+    // Begin Space for fixed objects
     this.addToMap(this.statusBar);
     this.addToMap(this.ammoBar);
     this.addToMap(this.coinBar);
+    // End Space for fixed objects
     this.ctx.translate(this.camera_x, 0);
     this.addToMap(this.character);
     this.ctx.translate(-this.camera_x, 0);
