@@ -8,7 +8,7 @@ class AmmoBar extends DrawableObject {
     "./img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png",
   ];
 
-  ammo = 100;
+  // ammo = 100;
   world;
 
   constructor() {
@@ -18,14 +18,17 @@ class AmmoBar extends DrawableObject {
     this.y = 70;
     this.width = 200;
     this.height = 53;
-    this.setAmmo(100);
+    this.setAmmo(0);
   }
 
   setAmmo(ammo) {
     this.ammo = ammo;
-    let healthImage = ammo / 20;
+    let healthImage = ammo;
+    // console.log(healthImage, this.IMAGES.length);
     healthImage = Math.trunc(healthImage);
-    let path = this.IMAGES[healthImage];
-    this.img = this.imageCache[path];
+    if (healthImage < this.IMAGES.length) {
+      let path = this.IMAGES[healthImage];
+      this.img = this.imageCache[path];
+    }
   }
 }

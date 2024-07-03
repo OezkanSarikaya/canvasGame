@@ -26,7 +26,7 @@ class World {
   }
 
   run() {
-    this.drawBottles(40);
+    this.drawBottles(10);
     this.drawCoins(10);
     // this.drawCoins(10);
     setInterval(() => {
@@ -50,20 +50,11 @@ class World {
     let y = 280;
     let speedY = 50;
     let acceleration = 10;
-
     let x = xPosition;
     for (let i = 0; i < amount; i++) {
       x += 40;
-      // if (speedY >=0) {
-        // console.log(y, speedY);
-        y -= speedY;
-        speedY -= acceleration;
-      // }
-      //  else {
-      //   y += speedY;
-      //   speedY += acceleration;
-      // }
-
+      y -= speedY;
+      speedY -= acceleration;
       let coin = new Coins(y, x);
       this.coins.push(coin);
     }

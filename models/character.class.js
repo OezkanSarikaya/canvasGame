@@ -5,8 +5,8 @@ class Character extends MoveableObject {
   // y = 280 - 40;
   y = 0;
   // camera_x = -100;
-  ammo = 40;
-  coins = 30;
+  ammo = 0;
+  coins = 0;
 
   IMAGES_IDLE = [
     "../img/2_character_pepe/1_idle/idle/I-1.png",
@@ -125,8 +125,8 @@ class Character extends MoveableObject {
       }
       // console.log(this.speedY);
       if (world.keyboard.SPACE && !this.isAboveGround()) {
-        this.jump();
-        world.keyboard.SPACE = false;
+        this.jump(); 
+        this.world.keyboard.SPACE = false;
       }
 
       world.camera_x = -this.x + 100;

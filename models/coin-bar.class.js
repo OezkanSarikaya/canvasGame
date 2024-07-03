@@ -18,15 +18,17 @@ class CoinBar extends DrawableObject {
       this.y = 120;
       this.width = 200;
       this.height = 53;
-      this.setCoins(100);
+      this.setCoins(0);
     }
   
     setCoins(coins) {
       this.coins = coins;
       let healthImage = coins / 20;
       healthImage = Math.trunc(healthImage);
+      if (healthImage < this.IMAGES.length) {
       let path = this.IMAGES[healthImage];
       this.img = this.imageCache[path];
+      }
     }
   }
   
