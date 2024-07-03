@@ -100,7 +100,8 @@ class World {
   }
 
   draw() {
-    this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.ctx.reset();
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds);
@@ -119,9 +120,9 @@ class World {
     this.addToMap(this.character);
     this.ctx.translate(-this.camera_x, 0);
 
-    let self = this;
-    requestAnimationFrame(function () {
-      self.draw();
+    // let self = this;
+    requestAnimationFrame( () => {
+      this.draw();
     });
   }
 

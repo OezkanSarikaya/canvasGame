@@ -1,27 +1,48 @@
+/* holtwood-one-sc-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Holtwood One SC';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/holtwood-one-sc-v21-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
 body {
   display: flex;
+  font-family: 'Holtwood One SC';
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   background-image: url('./img/5_background/desert.jpg');
   background-repeat: no-repeat;
   background-position: center center;
   height: 100vh;
+  margin: 0;
 }
+
+h1 {font-size:64px;opacity: 0.8;
+text-shadow: 5px 5px rgba(255,255,255,0.9);}
 canvas {
   background-color: black;
   display: block;
+  border-radius: 24px;
+  box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.5);
 
 }
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 1080px) {
+  
+  h1 {display: none;}
   canvas {
     width: 100%;
+    border-radius: unset;
   }
 }
 
-@media only screen and (max-height: 480px) {
+@media only screen and (max-height: 720px) {
+  h1 {display: none;}
   canvas {
     height: 100vh;
+    border-radius: unset;
   }
 }
