@@ -26,7 +26,7 @@ class World {
   }
 
   run() {
-    this.drawBottles(10);
+    this.drawBottles(20);
     this.drawCoins(10);
     // this.drawCoins(10);
     setInterval(() => {
@@ -48,7 +48,7 @@ class World {
   drawCoins(amount) {
     let xPosition = 50 + Math.random() * 600;
     xPosition = Math.trunc(xPosition / 80) * 40;
-    let y = 280;
+    let y = 370;
     let speedY = 50;
     let acceleration = 10;
     let x = xPosition;

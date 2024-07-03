@@ -8,7 +8,7 @@ class Character extends MoveableObject {
   coins = 0;
   world;
   speed = 15;
-  walking_sound = new Audio("./audio/walking.mp3");
+  walking_sound = new Audio("../audio/walking.mp3");
 
   IMAGES_IDLE = [
     "../img/2_character_pepe/1_idle/idle/I-1.png",
@@ -76,6 +76,7 @@ class Character extends MoveableObject {
   constructor() {
     super().loadImage("../img/2_character_pepe/2_walk/W-21.png");
     this.loadImages(this.IMAGES_IDLE);
+    this.loadImages(this.IMAGES_SLEEP);
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_JUMPING);
     this.loadImages(this.IMAGES_HURT);
@@ -109,7 +110,7 @@ class Character extends MoveableObject {
         this.otherDirection = false;
         // this.world.keyboard.RIGHT = false;
         // console.log(world.camera_x, this.x);
-        // this.walking_sound.play();
+        this.walking_sound.play();
       }
 
       if (this.world.keyboard.LEFT && this.x > -610) {
@@ -118,7 +119,7 @@ class Character extends MoveableObject {
         this.otherDirection = true;
         // this.world.keyboard.LEFT = false;
         // console.log(world.camera_x, this.x);
-        // this.walking_sound.play();
+        this.walking_sound.play();
       }
       // console.log(this.speedY);
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
