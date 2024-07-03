@@ -7,55 +7,38 @@ function init() {
   world = new World(canvas, keyboard);
 }
 
-
 window.addEventListener("keydown", (e) => {
-  // console.log(e.key);
-  if (e.key == "ArrowLeft") {
+  if (e.keyCode == 37) {
     keyboard.LEFT = true;
   }
 
-  if (e.key == "ArrowRight") {
+  if (e.keyCode == 39) {
     keyboard.RIGHT = true;
   }
 
-  if (e.key == "ArrowDown") {
-    keyboard.DOWN = true;
-  }
-
-  if (e.key == "ArrowUp") {
-    keyboard.UP = true;
-  }
-
-  if (e.key == " ") {
+  if (e.keyCode == 32) {
     keyboard.SPACE = true;
   }
 
-  if (e.key == "D" || e.key == "d") {
-    keyboard.D = true;    
+  if (e.keyCode == 68) {
+    keyboard.D = true;
   }
-
 });
 
-// window.addEventListener("keyup", (e) => {
-//     if (e.key == "ArrowLeft") {
-//       keyboard.LEFT = true;
-//     }
-  
-//     if (e.key == "ArrowRight") {
-//       keyboard.RIGHT = true;
-//     }
-  
-//     if (e.key == "ArrowDown") {
-//       keyboard.DOWN = true;
-//     }
-  
-//     if (e.key == "ArrowUp") {
-//       keyboard.UP = true;
-//     }
-  
-//     if (e.key == " ") {
-//       keyboard.SPACE = true;
-//     }
-//   });
+window.addEventListener("keyup", (e) => {
+  if (e.keyCode == 37) {
+    keyboard.LEFT = false;
+  }
 
+  if (e.keyCode == 39) {
+    keyboard.RIGHT = false;
+  }
 
+  if (e.keyCode == 32) {
+    keyboard.SPACE = false;
+  }
+
+  if (e.keyCode == 68) {
+    keyboard.D = false;
+  }
+});

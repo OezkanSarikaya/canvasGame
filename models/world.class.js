@@ -30,10 +30,11 @@ class World {
     this.drawCoins(10);
     // this.drawCoins(10);
     setInterval(() => {
+      this.checkThrowObjects();
       this.checkCollisions();
       this.checkCollect();
       this.collectCoins();
-      this.checkThrowObjects();
+      
     }, 200);
   }
 
@@ -65,7 +66,7 @@ class World {
       let bottle = new ThrowableObject(this.character.x + 20, this.character.y + 40, this.character.otherDirection);
       this.throwableObjects.push(bottle);
       this.ammoBar.setAmmo(this.character.ammo--);
-      this.keyboard.D = false;
+      // this.keyboard.D = false;
     }
   }
 

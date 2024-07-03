@@ -2,11 +2,12 @@ class Character extends MoveableObject {
   height = 200;
   width = 100;
   x = 0;
-  // y = 280 - 40;
   y = 0;
-  // camera_x = -100;
   ammo = 0;
   coins = 0;
+  world;
+  speed = 15;
+  walking_sound = new Audio("./audio/walking.mp3");
 
   IMAGES_IDLE = [
     "../img/2_character_pepe/1_idle/idle/I-1.png",
@@ -71,11 +72,6 @@ class Character extends MoveableObject {
     "../img/2_character_pepe/4_hurt/H-43.png",
   ];
 
-  // currentImage = 0;
-  world;
-  speed = 15;
-  walking_sound = new Audio("./audio/walking.mp3");
-
   constructor() {
     super().loadImage("../img/2_character_pepe/2_walk/W-21.png");
     this.loadImages(this.IMAGES_IDLE);
@@ -106,27 +102,27 @@ class Character extends MoveableObject {
     // Speed for move character
     setInterval(() => {
       // this.walking_sound.pause();
-      if (world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
         // this.x += this.speed;
         this.otherDirection = false;
-        world.keyboard.RIGHT = false;
+        // this.world.keyboard.RIGHT = false;
         // console.log(world.camera_x, this.x);
         // this.walking_sound.play();
       }
 
-      if (world.keyboard.LEFT && this.x > -610) {
+      if (this.world.keyboard.LEFT && this.x > -610) {
         this.moveLeft();
         // this.x -= this.speed;
         this.otherDirection = true;
-        world.keyboard.LEFT = false;
+        // this.world.keyboard.LEFT = false;
         // console.log(world.camera_x, this.x);
         // this.walking_sound.play();
       }
       // console.log(this.speedY);
-      if (world.keyboard.SPACE && !this.isAboveGround()) {
-        this.jump(); 
-        this.world.keyboard.SPACE = false;
+      if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+        this.jump();
+        // this.world.keyboard.SPACE = false;
       }
 
       world.camera_x = -this.x + 100;
