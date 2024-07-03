@@ -9,5 +9,14 @@ class BackgroundObject extends MoveableObject {
     super().loadImage(imagePath);
     this.x = x;
     this.y = 720 - this.height;
+    // this.animate();
   }
+
+  // animate() {
+  //   setInterval(() => {
+  //     this.moveLeft();
+  //   }, 1000 / 60);
+
+ 
+  // }
 }

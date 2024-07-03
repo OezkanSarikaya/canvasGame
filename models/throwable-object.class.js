@@ -4,7 +4,7 @@ class ThrowableObject extends MoveableObject {
 // world;
 
     constructor(x,y,otherDirection) {
-        super().loadImage("../img/6_salsa_bottle/salsa_bottle.png");
+        super().loadImage("./img/6_salsa_bottle/salsa_bottle.png");
         this.width = 60;
         this.height = 70;
         // this.world = world;
