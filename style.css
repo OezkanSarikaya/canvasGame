@@ -31,6 +31,10 @@ canvas {
   display: block;
   border-radius: 24px;
   box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.5);
+  background-image: url('./img/9_intro_outro_screens/start/startscreen_1.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 100%;
 
 }
 

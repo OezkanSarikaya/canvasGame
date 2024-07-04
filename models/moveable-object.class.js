@@ -8,10 +8,13 @@ class MoveableObject extends DrawableObject {
   otherDirection = false;
   speedY = 0;
   acceleration = 2.5;
-  offsetY = 10;
+  // offsetY = 10;
   energy = 100;
   ammo = 100;
   lastHit = 0;
+  // isEnemyDead = false;
+  // isDead = false;
+  // isDead = false;
   // world;
   // character;
   // ammoBar = new AmmoBar();
@@ -19,6 +22,13 @@ class MoveableObject extends DrawableObject {
   // keyboard;
 
   // constructor() {}
+
+  offset = {
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0
+  };
 
   applyGravity() {
     setInterval(() => {
@@ -37,31 +47,16 @@ class MoveableObject extends DrawableObject {
     }
   }
 
-
-  // drawFrame(ctx) {
-  //   if (this instanceof Character || this instanceof Chicken) {
-  //     ctx.beginPath();
-  //     ctx.lineWidth = "1";
-  //     ctx.strokeStyle = "blue";
-  //     ctx.rect(this.x, this.y, this.width, this.height);
-  //     ctx.stroke();
-  //   }
-  // }
-
   // character.isColliding(chicken)
   isColliding(obj) {
     return (
-      // this.x + this.width > obj.x &&
-      // this.y + this.height > obj.y &&
-      // this.x < obj.x &&
-      // this.y < obj.y + obj.height
-
-      this.x + this.width >= obj.x && this.x <= obj.x + obj.width
-      && this.y + this.offsetY + this.height >= obj.y &&
-      this.y + this.offsetY <= obj.y + obj.height
+      this.x + this.width - this.offset.right > obj.x + obj.offset.left &&
+      this.y + this.height - this.offset.bottom > obj.y + obj.offset.top &&
+      this.x + this.offset.left < obj.x + obj.width - obj.offset.right &&      
+      this.y + this.offset.top < obj.y + obj.height - obj.offset.bottom
       // &&  obj.onCollisionCourse
     );
-    // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. 
+    // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt.
     // Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
   }
 
@@ -75,19 +70,17 @@ class MoveableObject extends DrawableObject {
   }
 
   throw(otherDirection) {
-    // console.log(otherDirection);
     this.speedY = 30;
     this.applyGravity();
     this.ammo--;
     setInterval(() => {
       if (otherDirection) {
         this.x -= 10;
-      }
-      else {
+      } else {
         this.x += 10;
       }
     }, 25);
-}
+  }
 
   isDead() {
     return this.energy == 0;
@@ -95,7 +88,7 @@ class MoveableObject extends DrawableObject {
 
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
-    timepassed = timepassed / 1000; // Difference ein s
+    timepassed = timepassed / 1000; // Difference in s
     return timepassed < 0.5;
   }
 
@@ -107,17 +100,11 @@ class MoveableObject extends DrawableObject {
   }
 
   moveRight() {
-    // setInterval(() => {
     this.x += this.speed;
-    // this.otherDirection = false;
-    // }, 1000 / 60);
   }
 
   moveLeft() {
-    // setInterval(() => {
     this.x -= this.speed;
-    // this.otherDirection = true;
-    // }, 1000 / 60);
   }
 
   jump() {

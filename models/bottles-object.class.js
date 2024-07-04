@@ -1,4 +1,11 @@
 class Bottles extends DrawableObject {
+
+  offset = {
+    top: 14,
+    left: 14,
+    right: 14,
+    bottom: 10
+  };
   constructor() {
     let xPosition;
 

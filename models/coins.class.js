@@ -1,4 +1,10 @@
 class Coins extends DrawableObject {
+  offset = {
+    top: 20,
+    left: 20,
+    right: 20,
+    bottom: 20
+  };
   constructor(y,x) {
     // let xPosition;
     super().loadImage("./img/8_coin/coin_2.png");

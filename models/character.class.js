@@ -1,14 +1,20 @@
 class Character extends MoveableObject {
   height = 300;
   width = 150;
-  x = 0;
-  // y = 0;
+  x = -900;
   y = 640 - this.height;
   ammo = 0;
   coins = 0;
   world;
   speed = 15;
   walking_sound = new Audio("./audio/walking.mp3");
+
+  offset = {
+    top: 120,
+    left: 30,
+    right: 35,
+    bottom: 16,
+  };
 
   IMAGES_IDLE = [
     "./img/2_character_pepe/1_idle/idle/I-1.png",
@@ -100,12 +106,9 @@ class Character extends MoveableObject {
       } else if (world.keyboard.RIGHT || world.keyboard.LEFT) {
         sleepTimer = null;
         this.playAnimation(this.IMAGES_WALKING);
-      } 
-      else if (world.keyboard.D) {
+      } else if (world.keyboard.D) {
         sleepTimer = null;
-        // this.playAnimation(this.IMAGES_WALKING);
-      }
-      else {
+      } else {
         this.playAnimation(this.IMAGES_IDLE);
         if (sleepTimer == null) {
           sleepTimer = new Date().getTime();
@@ -119,29 +122,30 @@ class Character extends MoveableObject {
 
     // Speed for move character
     setInterval(() => {
-      // this.walking_sound.pause();
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
-
         // this.x += this.speed;
         this.otherDirection = false;
-        // this.world.keyboard.RIGHT = false;
         // console.log(world.camera_x, this.x);
-        this.walking_sound.play();
+        if (!this.isAboveGround()) {
+          this.walking_sound.play();
+        }
       }
 
       if (this.world.keyboard.LEFT && this.x > -610) {
         this.moveLeft();
         // this.x -= this.speed;
         this.otherDirection = true;
-        // this.world.keyboard.LEFT = false;
         // console.log(world.camera_x, this.x);
-        this.walking_sound.play();
+        if (!this.isAboveGround()) {
+          this.walking_sound.play();
+        }
+        
       }
       // console.log(this.speedY);
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+        // this.walking_sound.pause();
         this.jump();
-        // this.world.keyboard.SPACE = false;
       }
 
       world.camera_x = -this.x + 100;

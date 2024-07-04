@@ -11,6 +11,7 @@ class World {
   throwableObjects = [];
   bottles = [];
   coins = [];
+  // enemies = [];
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -28,13 +29,11 @@ class World {
   run() {
     this.drawBottles(20);
     this.drawCoins(10);
-    // this.drawCoins(10);
     setInterval(() => {
       this.checkThrowObjects();
       this.checkCollisions();
       this.checkCollect();
       this.collectCoins();
-      
     }, 200);
   }
 
@@ -48,7 +47,7 @@ class World {
   drawCoins(amount) {
     let xPosition = 50 + Math.random() * 600;
     xPosition = Math.trunc(xPosition / 80) * 40;
-    let y = 370;
+    let y = 390;
     let speedY = 50;
     let acceleration = 10;
     let x = xPosition;
@@ -63,18 +62,22 @@ class World {
 
   checkThrowObjects() {
     if (this.keyboard.D && this.character.ammo > 0) {
-      let bottle = new ThrowableObject(this.character.x + 20, this.character.y + 40, this.character.otherDirection);
+      let bottle = new ThrowableObject(this.character.x + 30, this.character.y + 120, this.character.otherDirection);
       this.throwableObjects.push(bottle);
       this.ammoBar.setAmmo(this.character.ammo--);
-      // this.keyboard.D = false;
     }
   }
 
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
-        this.character.hit();
-        this.statusBar.setPercentage(this.character.energy);
+        if (this.character.isAboveGround()) {
+          enemy.hit();
+          enemy.isEnemyDead = true;
+        } else if (!enemy.isEnemyDead) {
+          this.character.hit();
+          this.statusBar.setPercentage(this.character.energy);
+        }
       }
     });
   }
@@ -100,7 +103,6 @@ class World {
   }
 
   draw() {
-    // this.ctx.clearRect(0, 0, canvas.width, canvas.height);
     this.ctx.reset();
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.level.backgroundObjects);
@@ -120,8 +122,7 @@ class World {
     this.addToMap(this.character);
     this.ctx.translate(-this.camera_x, 0);
 
-    // let self = this;
-    requestAnimationFrame( () => {
+    requestAnimationFrame(() => {
       this.draw();
     });
   }
@@ -136,15 +137,9 @@ class World {
     if (mo.otherDirection) {
       this.flipImage(mo);
     }
-    // this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+
     mo.draw(this.ctx);
     mo.drawFrame(this.ctx);
-
-    // this.ctx.beginPath();
-    // this.ctx.lineWidth = "1";
-    // this.ctx.strokeStyle = "blue";
-    // this.ctx.rect(mo.x, mo.y, mo.width, mo.height);
-    // this.ctx.stroke();
 
     if (mo.otherDirection) {
       this.flipImageBack(mo);
