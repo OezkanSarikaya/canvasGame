@@ -32,6 +32,7 @@ class World {
     setInterval(() => {
       this.checkThrowObjects();
       this.checkCollisions();
+      this.checkHit();
       this.checkCollect();
       this.collectCoins();
     }, 200);
@@ -64,8 +65,23 @@ class World {
     if (this.keyboard.D && this.character.ammo > 0) {
       let bottle = new ThrowableObject(this.character.x + 30, this.character.y + 120, this.character.otherDirection);
       this.throwableObjects.push(bottle);
+      // bottle.animate();
       this.ammoBar.setAmmo(this.character.ammo--);
+
+      // console.log(isColliding(obj));
     }
+  }
+
+  checkHit() {
+    this.level.enemies.forEach((enemy) => {
+      this.throwableObjects.forEach((bottle) => {
+        if (bottle.isColliding(enemy)) {
+          // console.log("treffer");
+          enemy.hit();
+          enemy.isEnemyDead = true;         
+        }
+      });
+    });
   }
 
   checkCollisions() {

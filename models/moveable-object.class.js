@@ -1,27 +1,12 @@
 class MoveableObject extends DrawableObject {
-  //   x = 120;
-  //   y = 250;
-  //   height = 200;
-  //   width = 100;
 
   speed = 0.15;
   otherDirection = false;
   speedY = 0;
-  acceleration = 2.5;
-  // offsetY = 10;
-  energy = 100;
-  ammo = 100;
+  acceleration = 2.5; 
+  // energy = 100;
+  // ammo = 100;
   lastHit = 0;
-  // isEnemyDead = false;
-  // isDead = false;
-  // isDead = false;
-  // world;
-  // character;
-  // ammoBar = new AmmoBar();
-  // world;
-  // keyboard;
-
-  // constructor() {}
 
   offset = {
     top: 0,
@@ -72,12 +57,15 @@ class MoveableObject extends DrawableObject {
   throw(otherDirection) {
     this.speedY = 30;
     this.applyGravity();
+    // this.animate();
     this.ammo--;
     setInterval(() => {
       if (otherDirection) {
         this.x -= 10;
+        // this.animate();
       } else {
         this.x += 10;
+        // this.animate();
       }
     }, 25);
   }

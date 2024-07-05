@@ -5,6 +5,7 @@ class Character extends MoveableObject {
   y = 640 - this.height;
   ammo = 0;
   coins = 0;
+  energy = 100;
   world;
   speed = 15;
   walking_sound = new Audio("./audio/walking.mp3");
@@ -124,9 +125,7 @@ class Character extends MoveableObject {
     setInterval(() => {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
-        // this.x += this.speed;
         this.otherDirection = false;
-        // console.log(world.camera_x, this.x);
         if (!this.isAboveGround()) {
           this.walking_sound.play();
         }
@@ -134,22 +133,15 @@ class Character extends MoveableObject {
 
       if (this.world.keyboard.LEFT && this.x > -610) {
         this.moveLeft();
-        // this.x -= this.speed;
         this.otherDirection = true;
-        // console.log(world.camera_x, this.x);
         if (!this.isAboveGround()) {
           this.walking_sound.play();
         }
-        
       }
-      // console.log(this.speedY);
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-        // this.walking_sound.pause();
         this.jump();
       }
-
       world.camera_x = -this.x + 100;
-      // this.camera_x = -this.x;
     }, 1000 / 60);
   }
 }
