@@ -4,7 +4,7 @@ class Character extends MoveableObject {
   x = -900;
   y = 640 - this.height;
   ammo = 0;
-  coins = 0;
+  coins = 35;
   energy = 100;
   world;
   speed = 15;

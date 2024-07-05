@@ -1,9 +1,8 @@
 class MoveableObject extends DrawableObject {
-
   speed = 0.15;
   otherDirection = false;
   speedY = 0;
-  acceleration = 2.5; 
+  acceleration = 2.5;
   // energy = 100;
   // ammo = 100;
   lastHit = 0;
@@ -12,12 +11,13 @@ class MoveableObject extends DrawableObject {
     top: 0,
     left: 0,
     right: 0,
-    bottom: 0
+    bottom: 0,
   };
 
   applyGravity() {
     setInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
+        // if (this.isAboveGround() ) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
       }
@@ -37,7 +37,7 @@ class MoveableObject extends DrawableObject {
     return (
       this.x + this.width - this.offset.right > obj.x + obj.offset.left &&
       this.y + this.height - this.offset.bottom > obj.y + obj.offset.top &&
-      this.x + this.offset.left < obj.x + obj.width - obj.offset.right &&      
+      this.x + this.offset.left < obj.x + obj.width - obj.offset.right &&
       this.y + this.offset.top < obj.y + obj.height - obj.offset.bottom
       // &&  obj.onCollisionCourse
     );
@@ -57,16 +57,24 @@ class MoveableObject extends DrawableObject {
   throw(otherDirection) {
     this.speedY = 30;
     this.applyGravity();
-    // this.animate();
     this.ammo--;
-    setInterval(() => {
-      if (otherDirection) {
+    const fly = setInterval(() => {
+      if (otherDirection && !this.isSplashed) {
         this.x -= 10;
-        // this.animate();
-      } else {
-        this.x += 10;
-        // this.animate();
       }
+
+      if (!otherDirection && !this.isSplashed) {
+        this.x += 10;
+      }
+
+      if (this.isSplashed) {
+        this.x = this.x;
+        this.y = this.y;
+        this.speedY = 0;
+        this.acceleration = 0;
+        clearInterval(fly);
+      }
+      // console.log(this.isSplashed);
     }, 25);
   }
 

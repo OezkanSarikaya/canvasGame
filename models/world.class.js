@@ -18,6 +18,7 @@ class World {
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.draw();
+    // this.text();
     this.setWorld();
     this.run();
   }
@@ -65,10 +66,7 @@ class World {
     if (this.keyboard.D && this.character.ammo > 0) {
       let bottle = new ThrowableObject(this.character.x + 30, this.character.y + 120, this.character.otherDirection);
       this.throwableObjects.push(bottle);
-      // bottle.animate();
       this.ammoBar.setAmmo(this.character.ammo--);
-
-      // console.log(isColliding(obj));
     }
   }
 
@@ -76,9 +74,9 @@ class World {
     this.level.enemies.forEach((enemy) => {
       this.throwableObjects.forEach((bottle) => {
         if (bottle.isColliding(enemy)) {
-          // console.log("treffer");
           enemy.hit();
-          enemy.isEnemyDead = true;         
+          enemy.isEnemyDead = true;
+          bottle.isSplashed = true;
         }
       });
     });
@@ -118,6 +116,11 @@ class World {
     }
   }
 
+  // text() {
+  //   this.ctx.font = "50px Arial";
+  //   this.ctx.fillText(percentage, 10, 80);
+  // }
+
   draw() {
     this.ctx.reset();
     this.ctx.translate(this.camera_x, 0);
@@ -150,12 +153,14 @@ class World {
   }
 
   addToMap(mo) {
+    // mo.text(this.ctx);
     if (mo.otherDirection) {
       this.flipImage(mo);
     }
 
     mo.draw(this.ctx);
-    mo.drawFrame(this.ctx);
+    
+    // mo.drawFrame(this.ctx);
 
     if (mo.otherDirection) {
       this.flipImageBack(mo);
