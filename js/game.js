@@ -6,13 +6,13 @@ function init() {
   delete world;
   canvas = document.getElementById("canvas");
   // setTimeout(()=>{world = new World(canvas, keyboard);  },1000);
-  // world = new World(canvas, keyboard);  
+  world = new World(canvas, keyboard);  
 }
 
 function startGame() {
-delete world;
-delete keyboard;
-canvas = null;
+// delete world;
+// delete keyboard;
+// canvas = null;
 canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
 }
