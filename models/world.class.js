@@ -5,32 +5,37 @@ class World {
   ctx;
   keyboard;
   camera_x = 0;
-  statusBar = new StatusBar();
   ammoBar = new AmmoBar();
   coinBar = new CoinBar();
   throwableObjects = [];
   bottles = [];
   coins = [];
-  // enemies = [];
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.draw();
-    // this.text();
     this.setWorld();
     this.run();
   }
 
   setWorld() {
     this.character.world = this;
+    // Each enemy can read x position of character (needed for follow function)
+    for (let i = 0; i < this.level.enemies.length; i++) {
+      this.level.enemies[i].characterX = this.character.x;
+    }
   }
 
   run() {
     this.drawBottles(20);
     this.drawCoins(10);
     setInterval(() => {
+      for (let i = 0; i < this.level.enemies.length; i++) {
+        this.level.enemies[i].characterX = this.character.x;
+      }
+
       this.checkThrowObjects();
       this.checkCollisions();
       this.checkHit();
@@ -116,26 +121,37 @@ class World {
     }
   }
 
-  // text() {
-  //   this.ctx.font = "50px Arial";
-  //   this.ctx.fillText(percentage, 10, 80);
-  // }
-
   draw() {
     this.ctx.reset();
     this.ctx.translate(this.camera_x, 0);
+
+    // sunrise animation
+    let saturate = -this.level.backgroundObjects[1].y + 400;
+    if (this.level.backgroundObjects[1].y > 50) {
+      this.level.backgroundObjects[1].x += 0.5;
+      this.level.backgroundObjects[1].y -= 0.5;
+      if (saturate <= 100) {
+        this.canvas.style.filter = "saturate(" + saturate + "%)";
+      }
+    }
+
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.coins);
     this.addObjectsToMap(this.bottles);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.throwableObjects);
-
     this.ctx.translate(-this.camera_x, 0);
     // Begin Space for fixed objects
     this.addToMap(this.statusBar);
     this.addToMap(this.ammoBar);
     this.addToMap(this.coinBar);
+    this.ctx.font = "32px Boogaloo";
+    this.ctx.fillStyle = "white";
+    this.ctx.fillText(this.character.energy, 230, 67);
+    this.ctx.fillText(this.character.ammo, 230, 117);
+    this.ctx.fillText(this.character.coins, 230, 167);
+    this.ctx.fillText(this.level.enemies[8].energy, 900, 67); // Endboss
     // End Space for fixed objects
     this.ctx.translate(this.camera_x, 0);
     this.addToMap(this.character);
@@ -153,15 +169,11 @@ class World {
   }
 
   addToMap(mo) {
-    // mo.text(this.ctx);
     if (mo.otherDirection) {
       this.flipImage(mo);
     }
-
     mo.draw(this.ctx);
-    
-    // mo.drawFrame(this.ctx);
-
+    // mo.drawFrame(this.ctx); // switch on/off frames around all movable objects 
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }

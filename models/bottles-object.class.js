@@ -17,7 +17,6 @@ class Bottles extends DrawableObject {
 
     this.width = 80;
     this.height = 80;
-    // this.y = 350;
     this.y = 640 - this.height;
     xPosition = -600 + Math.random() * 2100;
     this.x = Math.trunc(xPosition / this.width) * 90;

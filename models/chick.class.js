@@ -21,18 +21,17 @@ class Chick extends MoveableObject {
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_DEAD);
     this.x = 200 + Math.random() * 2100;
-    this.speed = 0.25 + Math.random() * 0.75;
+    this.speed = 0.55 + Math.random() * 0.95;
     this.animate();
   }
 
   animate() {
     setInterval(() => {
       if (!this.isEnemyDead) {
-        this.moveLeft();
+        this.followCharacter(this.speed, this.characterX);
       }
     }, 1000 / 60);
 
-    
     let timepassed = 0;
     setInterval(() => {
       if (!this.isEnemyDead) {
@@ -41,8 +40,8 @@ class Chick extends MoveableObject {
         if (timepassed < 5000) {
           this.playAnimation(this.IMAGES_DEAD);
         } else {
-          this.y = -100; 
-        }  
+          this.y = -100;
+        }
         timepassed = new Date().getTime() - this.lastHit;
       }
     }, 120);

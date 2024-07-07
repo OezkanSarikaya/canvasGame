@@ -12,5 +12,7 @@ class Level {
     this.coins = coins;
     this.clouds = clouds;
     this.backgroundObjects = backgroundObjects;
+    // this.animate();
   }
+
 }

@@ -42,7 +42,7 @@ class ThrowableObject extends MoveableObject {
         this.playAnimation(this.IMAGES_BOTTLE_ROTATION);
       } 
       else {  
-        this.playAnimation(this.IMAGES_BOTTLE_SPLASH);    
+        this.playAnimationOnce(this.IMAGES_BOTTLE_SPLASH);    
         setTimeout(() => {
             this.y = 900;   
         }, 500);              

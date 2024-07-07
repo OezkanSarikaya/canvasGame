@@ -3,9 +3,23 @@ let world;
 let keyboard = new Keyboard();
 let mariachi = new Audio("./audio/mariachi.mp3");
 function init() {
+  delete world;
   canvas = document.getElementById("canvas");
-  setTimeout(()=>{world = new World(canvas, keyboard);  },1000);
+  // setTimeout(()=>{world = new World(canvas, keyboard);  },1000);
   // world = new World(canvas, keyboard);  
+}
+
+function startGame() {
+delete world;
+delete keyboard;
+canvas = null;
+canvas = document.getElementById("canvas");
+  world = new World(canvas, keyboard);
+}
+
+function fullscreen() {
+
+  canvas.requestFullscreen();
 }
 
 window.addEventListener("keydown", (e) => {

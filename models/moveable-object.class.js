@@ -3,8 +3,6 @@ class MoveableObject extends DrawableObject {
   otherDirection = false;
   speedY = 0;
   acceleration = 2.5;
-  // energy = 100;
-  // ammo = 100;
   lastHit = 0;
 
   offset = {
@@ -95,12 +93,29 @@ class MoveableObject extends DrawableObject {
     this.currentImage++;
   }
 
+  playAnimationOnce(images) {
+    for (let i = 0; i < images.length; i++) {
+      const path = images[i];
+      this.img = this.imageCache[path];
+    }
+  }
+
   moveRight() {
     this.x += this.speed;
   }
 
   moveLeft() {
     this.x -= this.speed;
+  }
+
+  followCharacter(speed, characterX) {
+    if (this.x < characterX) {
+      this.x += speed;
+      this.otherDirection = true;
+    } else {
+      this.x -= speed;
+      this.otherDirection = false;
+    }
   }
 
   jump() {

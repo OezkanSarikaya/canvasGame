@@ -6,11 +6,11 @@ class Cloud extends MoveableObject {
   y = 50;
 
 
-  getRandomInt(min, max) {
-    const minCeiled = Math.ceil(min);
-    const maxFloored = Math.floor(max);
-    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
-  }
+  // getRandomInt(min, max) {
+  //   const minCeiled = Math.ceil(min);
+  //   const maxFloored = Math.floor(max);
+  //   return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+  // }
 
   constructor() {
     super().loadImage("./img/5_background/layers/4_clouds/1.png");
