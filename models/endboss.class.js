@@ -54,31 +54,42 @@ class Endboss extends MoveableObject {
   };
 
   constructor() {
-    // y = 640 - this.height;
     super().loadImage(this.IMAGES_WALKING[0]);
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_ALERT);
     this.loadImages(this.IMAGES_ATTACK);
     this.loadImages(this.IMAGES_DEAD);
-    // this.x = 1000;
-    // this.playAnimation(this.IMAGES_WALKING);
-    // this.speed = 0.25 + Math.random() * 0.75;
     this.animate();
   }
 
   animate() {
     // Speed for walking Animation
+    let follow = false;
+    let distance;
     let endBoss = setInterval(() => {
+      follow = false;
+      distance = parseInt(this.characterX) - parseInt(this.x);
+      distance = Math.abs(distance);
       if (this.isDead()) {
-        this.playAnimationOnce(this.IMAGES_DEAD);
+        this.playAnimationOnce(this.IMAGES_DEAD); 
         clearInterval(endBoss);
-      } else if (this.isHurt()) {
-        // sleepTimer = null;
+      } else if (this.isHurt()) { 
         this.playAnimation(this.IMAGES_HURT);
+      } else if (distance < 600 && distance > 400) {
+        this.playAnimation(this.IMAGES_ALERT);
+      } else if (distance < 400) {
+        this.playAnimation(this.IMAGES_ATTACK);
       } else {
+        follow = true;
         this.playAnimation(this.IMAGES_WALKING);
       }
     }, 200);
+
+    setInterval(() => {
+      if (follow) {
+        this.followCharacter(3, this.characterX);
+      }
+    }, 1000 / 60);
   }
 }

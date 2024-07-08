@@ -95,8 +95,7 @@ class World {
           enemy.hit();
           enemy.isEnemyDead = true;
         } else if (!enemy.isEnemyDead) {
-          this.character.hit();
-          this.statusBar.setPercentage(this.character.energy);
+          this.character.hit();    
         }
       }
     });
@@ -149,10 +148,10 @@ class World {
     this.addToMap(this.coinBar);
     this.ctx.font = "32px Boogaloo";
     this.ctx.fillStyle = "white";
-    this.ctx.fillText(this.character.energy, 230, 67);
-    this.ctx.fillText(this.character.ammo, 230, 117);
-    this.ctx.fillText(this.character.coins, 230, 167);
-    this.ctx.fillText(this.level.enemies[8].energy, 900, 67); // Endboss
+    this.ctx.fillText(this.character.ammo, 60, 60);
+    this.ctx.fillText(this.character.energy, 155, 60);    
+    this.ctx.fillText(this.character.coins, 245, 60);
+    this.ctx.fillText(this.level.enemies[8].energy, 1000, 60); // Endboss
     // End Space for fixed objects
     this.ctx.translate(this.camera_x, 0);
     this.addToMap(this.character);

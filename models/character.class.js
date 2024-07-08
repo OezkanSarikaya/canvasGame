@@ -124,14 +124,9 @@ class Character extends MoveableObject {
     // Speed for move character
     setInterval(() => {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-       
-        // this.world.level.backgroundObjects[13].x -= 1;
-        // this.world.level.backgroundObjects[9].x -= 1;
-        // this.world.level.backgroundObjects[5].x -= 1;
-
+  
         // this.world.level.backgroundObjects[1].x += this.speed-3;
         this.moveRight();
-        // this.followPepe();
         this.otherDirection = false;
         if (!this.isAboveGround()) {
           this.walking_sound.play();
@@ -141,7 +136,6 @@ class Character extends MoveableObject {
       if (this.world.keyboard.LEFT && this.x > -610) {
         // this.world.level.backgroundObjects[1].x -= this.speed-3;
         this.moveLeft();
-        // this.followPepe();
         this.otherDirection = true;
         if (!this.isAboveGround()) {
           this.walking_sound.play();
