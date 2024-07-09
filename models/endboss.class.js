@@ -74,17 +74,19 @@ class Endboss extends MoveableObject {
       distance = parseInt(this.characterX) - parseInt(this.x);
       distance = Math.abs(distance);
       if (this.isDead()) {
+        this.playAnimationOnce(this.IMAGES_DEAD);
         setTimeout(()=>{
-          this.playAnimation(this.IMAGES_DEAD); 
-        },1000)
+          this.height = 650;
+          this.width = 650;
+          this.x = this.characterX -= 100 - 220;
+          this.y = 20;
+          this.otherDirection = false;
+          this.loadImage(this.YOU_WIN);
+          clearAllIntervals();
+        },1500);
        
-        this.height = 720;
-        this.width = 1080;
-        this.x = this.characterX -= 100;
-        this.y = 0;
-        this.otherDirection = false;
-        this.loadImage(this.YOU_WIN);
-        clearAllIntervals();
+        
+        
         // clearInterval(endBoss);
       } else if (this.isHurt()) { 
         this.playAnimation(this.IMAGES_HURT);
