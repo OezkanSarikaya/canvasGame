@@ -8,6 +8,7 @@ class World {
   statusBar = new StatusBar();
   ammoBar = new AmmoBar();
   coinBar = new CoinBar();
+  endbossBar = new EndbossBar();
   throwableObjects = [];
   bottles = [];
   coins = [];
@@ -29,6 +30,12 @@ class World {
     }
   }
 
+  clearAllIntervals() {
+    for (let i = 1; i < 9999; i++) {
+      window.clearInterval(i);
+    }
+  }
+
   run() {
     this.drawBottles(20);
     this.drawCoins(10);
@@ -42,7 +49,7 @@ class World {
       this.checkHit();
       this.checkCollect();
       this.collectCoins();
-    }, 200);
+    }, 1000/20);
   }
 
   drawBottles(amount) {
@@ -91,7 +98,7 @@ class World {
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
-        if (this.character.isAboveGround()) {
+        if (this.character.isAboveGround() && this.character.speedY < 0) {
           enemy.hit();
           enemy.isEnemyDead = true;
         } else if (!enemy.isEnemyDead) {
@@ -146,11 +153,13 @@ class World {
     this.addToMap(this.statusBar);
     this.addToMap(this.ammoBar);
     this.addToMap(this.coinBar);
-    this.ctx.font = "32px Boogaloo";
+    this.addToMap(this.endbossBar);
+    this.ctx.font = "40px Boogaloo";
     this.ctx.fillStyle = "white";
     this.ctx.fillText(this.character.ammo, 60, 60);
     this.ctx.fillText(this.character.energy, 155, 60);    
-    this.ctx.fillText(this.character.coins, 245, 60);
+    this.ctx.fillText(this.character.coins, 255, 60);
+    // this.ctx.fillText(this.character.coins, 245, 60);
     this.ctx.fillText(this.level.enemies[8].energy, 1000, 60); // Endboss
     // End Space for fixed objects
     this.ctx.translate(this.camera_x, 0);

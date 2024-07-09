@@ -44,12 +44,14 @@ class MoveableObject extends DrawableObject {
   }
 
   hit() {
+    // if (isHurt()) {
     this.energy -= 1;
     if (this.energy < 0) {
       this.energy = 0;
     } else {
       this.lastHit = new Date().getTime();
     }
+  // }
   }
 
   throw(otherDirection) {
@@ -78,6 +80,7 @@ class MoveableObject extends DrawableObject {
 
   isDead() {
     return this.energy == 0;
+    
   }
 
   isHurt() {

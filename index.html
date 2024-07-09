@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El Pollo Loco</title>
     <link rel="stylesheet" href="style.css" />
+    <script defer src="./models/world.class.js"></script>
+    <script defer src="./models/keyboard.class.js"></script>
+    
     <script defer src="./models/drawable-object.class.js"></script>
     <script defer src="./models/moveable-object.class.js"></script>
     <script defer src="./models/coins.class.js"></script>
@@ -17,22 +20,22 @@
     <script defer src="./models/cloud.class.js"></script>
     <script defer src="./models/background-object.class.js"></script>
     <script defer src="./models/status-bar.class.js"></script>
+    <script defer src="./models/endbossBar.class.js"></script>
     <script defer src="./models/ammo-bar.class.js"></script>
     <script defer src="./models/coin-bar.class.js"></script>
-    <script defer src="./models/world.class.js"></script>
-    <script defer src="./models/keyboard.class.js"></script>
+    <script defer src="./js/game.js"></script>
     <script defer src="./models/level.class.js"></script>
     <script defer src="./models/endboss.class.js"></script>
     <script defer src="./levels/level1.js"></script>
     <script defer src="./levels/level2.js"></script>
-    <script defer src="./js/game.js"></script>
+    
   </head>
   <body onload="">
     <h1>El Pollo Loco</h1>
     <canvas id="canvas" width="1080" height="720"></canvas>
     <!-- <div class="overlay"> -->
       <div id="hud">
-        <div class="panel">
+        <div class="topPanel">
           <div class="panel-wrapper">
             <button>
               <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000"><path d="M382-306.67 653.33-480 382-653.33v346.66ZM480-80q-82.33 0-155.33-31.5-73-31.5-127.34-85.83Q143-251.67 111.5-324.67T80-480q0-83 31.5-156t85.83-127q54.34-54 127.34-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 82.33-31.5 155.33-31.5 73-85.5 127.34Q709-143 636-111.5T480-80Z"/></svg>

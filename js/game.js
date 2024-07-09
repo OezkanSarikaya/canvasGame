@@ -2,20 +2,31 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let mariachi = new Audio("./audio/mariachi.mp3");
-function init() {
-  delete world;
-  canvas = document.getElementById("canvas");
-  // setTimeout(()=>{world = new World(canvas, keyboard);  },1000);
-  world = new World(canvas, keyboard);
+// function init() {
+//   delete world;
+//   canvas = document.getElementById("canvas");
+//   // setTimeout(()=>{world = new World(canvas, keyboard);  },1000);
+//   world = new World(canvas, keyboard);
+// }
+
+function clearAllIntervals() {
+  for (let i = 1; i < 9999; i++) {
+    window.clearInterval(i);
+  }
 }
 
 function startGame() {
-  // delete world;
+  delete world;
   // delete keyboard;
   // canvas = null;
+  clearAllIntervals();
+  initLevel();
+  // mariachi.play();
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
 }
+
+
 
 function fullscreen() {
   canvas.requestFullscreen();

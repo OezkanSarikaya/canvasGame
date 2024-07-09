@@ -3,7 +3,7 @@ class Endboss extends MoveableObject {
   width = 348;
   y = 280;
   x = 2700;
-  energy = 35;
+  energy = 200;
 
   IMAGES_WALKING = [
     "./img/4_enemie_boss_chicken/1_walk/G1.png",
@@ -46,6 +46,8 @@ class Endboss extends MoveableObject {
     "./img/4_enemie_boss_chicken/5_dead/G26.png",
   ];
 
+  YOU_WIN = "./img/9_intro_outro_screens/win/win_2.png";
+
   offset = {
     top: 30,
     left: 30,
@@ -72,8 +74,18 @@ class Endboss extends MoveableObject {
       distance = parseInt(this.characterX) - parseInt(this.x);
       distance = Math.abs(distance);
       if (this.isDead()) {
-        this.playAnimationOnce(this.IMAGES_DEAD); 
-        clearInterval(endBoss);
+        setTimeout(()=>{
+          this.playAnimation(this.IMAGES_DEAD); 
+        },1000)
+       
+        this.height = 720;
+        this.width = 1080;
+        this.x = this.characterX -= 100;
+        this.y = 0;
+        this.otherDirection = false;
+        this.loadImage(this.YOU_WIN);
+        clearAllIntervals();
+        // clearInterval(endBoss);
       } else if (this.isHurt()) { 
         this.playAnimation(this.IMAGES_HURT);
       } else if (distance < 600 && distance > 400) {

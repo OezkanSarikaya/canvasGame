@@ -71,7 +71,7 @@ class Character extends MoveableObject {
     "./img/2_character_pepe/5_dead/D-54.png",
     "./img/2_character_pepe/5_dead/D-55.png",
     "./img/2_character_pepe/5_dead/D-56.png",
-    "./img/2_character_pepe/5_dead/D-57.png",
+    // "./img/2_character_pepe/5_dead/D-57.png",
   ];
 
   IMAGES_HURT = [
@@ -80,8 +80,11 @@ class Character extends MoveableObject {
     "./img/2_character_pepe/4_hurt/H-43.png",
   ];
 
+  GAME_OVER = "./img/9_intro_outro_screens/game_over/game over.png";
+
   constructor() {
     super().loadImage("./img/2_character_pepe/2_walk/W-21.png");
+    // this.loadImage(this.GAME_OVER);
     this.loadImages(this.IMAGES_IDLE);
     this.loadImages(this.IMAGES_SLEEP);
     this.loadImages(this.IMAGES_WALKING);
@@ -98,6 +101,14 @@ class Character extends MoveableObject {
     setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
+        this.height = 720;
+        this.width = 1080;
+        this.x -= 100;
+        this.y = 0;
+        this.otherDirection = false;
+        this.loadImage(this.GAME_OVER);
+        clearAllIntervals();
+        
       } else if (this.isHurt()) {
         sleepTimer = null;
         this.playAnimation(this.IMAGES_HURT);
