@@ -100,15 +100,18 @@ class Character extends MoveableObject {
     let sleepTimer = null;
     setInterval(() => {
       if (this.isDead()) {
-        this.playAnimation(this.IMAGES_DEAD);
-        this.height = 720;
-        this.width = 1080;
-        this.x -= 100;
-        this.y = 0;
-        this.otherDirection = false;
-        this.loadImage(this.GAME_OVER);
-        clearAllIntervals();
-        
+        this.playAnimationOnce(this.IMAGES_DEAD);
+        setTimeout(() => {
+          this.height = 720;
+          this.width = 1080;
+          this.x -= 100;
+          this.y = 0;
+          this.otherDirection = false;
+          this.loadImage(this.GAME_OVER);
+          clearAllIntervals();
+        }, 1000);
+
+
       } else if (this.isHurt()) {
         sleepTimer = null;
         this.playAnimation(this.IMAGES_HURT);
@@ -132,12 +135,32 @@ class Character extends MoveableObject {
       }
     }, 100);
 
+    let speedLayer3 = 10;
+    let speedLayer2 = 5;
+    let speedLayerSun = 15;
+
     // Speed for move character
     setInterval(() => {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-  
         // this.world.level.backgroundObjects[1].x += this.speed-3;
         this.moveRight();
+        // world.camera_x += 30;
+        this.world.level.backgroundObjects[1].x += speedLayerSun;
+
+        this.world.level.backgroundObjects[0].x += speedLayerSun;
+        this.world.level.backgroundObjects[2].x += speedLayer3;
+        this.world.level.backgroundObjects[5].x += speedLayerSun;
+        this.world.level.backgroundObjects[6].x += speedLayer3;
+        this.world.level.backgroundObjects[9].x += speedLayerSun;
+        this.world.level.backgroundObjects[10].x += speedLayer3;
+        this.world.level.backgroundObjects[13].x += speedLayerSun;
+        this.world.level.backgroundObjects[14].x += speedLayer3;
+
+        this.world.level.backgroundObjects[3].x += speedLayer2;
+        this.world.level.backgroundObjects[7].x += speedLayer2;
+        this.world.level.backgroundObjects[11].x += speedLayer2;
+        this.world.level.backgroundObjects[15].x += speedLayer2;
+
         this.otherDirection = false;
         if (!this.isAboveGround()) {
           this.walking_sound.play();
@@ -147,6 +170,23 @@ class Character extends MoveableObject {
       if (this.world.keyboard.LEFT && this.x > -610) {
         // this.world.level.backgroundObjects[1].x -= this.speed-3;
         this.moveLeft();
+
+        this.world.level.backgroundObjects[1].x -= speedLayerSun;
+
+        this.world.level.backgroundObjects[0].x -= speedLayerSun;
+        this.world.level.backgroundObjects[2].x -= speedLayer3;
+        this.world.level.backgroundObjects[5].x -= speedLayerSun;
+        this.world.level.backgroundObjects[6].x -= speedLayer3;
+        this.world.level.backgroundObjects[9].x -= speedLayerSun;
+        this.world.level.backgroundObjects[10].x -= speedLayer3;
+        this.world.level.backgroundObjects[13].x -= speedLayerSun;
+        this.world.level.backgroundObjects[14].x -= speedLayer3;
+
+        this.world.level.backgroundObjects[3].x -= speedLayer2;
+        this.world.level.backgroundObjects[7].x -= speedLayer2;
+        this.world.level.backgroundObjects[11].x -= speedLayer2;
+        this.world.level.backgroundObjects[15].x -= speedLayer2;
+
         this.otherDirection = true;
         if (!this.isAboveGround()) {
           this.walking_sound.play();

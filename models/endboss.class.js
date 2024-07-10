@@ -83,7 +83,7 @@ class Endboss extends MoveableObject {
           this.otherDirection = false;
           this.loadImage(this.YOU_WIN);
           clearAllIntervals();
-        },1500);
+        },1000);
        
         
         

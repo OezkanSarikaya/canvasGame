@@ -9,7 +9,7 @@ class Chicken extends MoveableObject {
   ];
 
   IMAGES_DEAD = ["./img/3_enemies_chicken/chicken_normal/2_dead/dead.png"];
-
+  chick_sound = new Audio("./audio/chicken2.mp3");
   offset = {
     top: 3,
     left: 3,
@@ -32,6 +32,7 @@ class Chicken extends MoveableObject {
     setInterval(() => {
       if (!this.isEnemyDead) {
         this.followCharacter(this.speed,this.characterX);
+        // this.chick_sound.play();
       }
     }, 1000 / 60);
 

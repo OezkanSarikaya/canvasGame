@@ -160,7 +160,11 @@ class World {
     this.ctx.fillText(this.character.energy, 155, 60);    
     this.ctx.fillText(this.character.coins, 255, 60);
     // this.ctx.fillText(this.character.coins, 245, 60);
-    this.ctx.fillText(this.level.enemies[8].energy, 1000, 60); // Endboss
+    if (this.level.enemies[8]) {
+
+      this.ctx.fillText(this.level.enemies[8].energy, 1000, 60); // Endboss
+    }
+ 
     // End Space for fixed objects
     this.ctx.translate(this.camera_x, 0);
     this.addToMap(this.character);

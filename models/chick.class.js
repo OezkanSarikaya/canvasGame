@@ -14,6 +14,8 @@ class Chick extends MoveableObject {
     right: 3,
     bottom: 3,
   };
+  chick_sound = new Audio("./audio/chic2.mp3");
+  chick_sound2 = new Audio("./audio/chick.mp3");
 
   y = 640 - this.height;
   constructor() {
@@ -29,6 +31,7 @@ class Chick extends MoveableObject {
     setInterval(() => {
       if (!this.isEnemyDead) {
         this.followCharacter(this.speed, this.characterX);
+        // this.chick_sound.play();
       }
     }, 1000 / 60);
 
