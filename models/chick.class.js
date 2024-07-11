@@ -31,6 +31,7 @@ class Chick extends MoveableObject {
     setInterval(() => {
       if (!this.isEnemyDead) {
         this.followCharacter(this.speed, this.characterX);
+
         // this.chick_sound.play();
       }
     }, 1000 / 60);
@@ -39,6 +40,20 @@ class Chick extends MoveableObject {
     setInterval(() => {
       if (!this.isEnemyDead) {
         this.playAnimation(this.IMAGES_WALKING);
+
+        if (soundsMuted) {
+          // this.chick_sound2.pause();
+          this.chick_sound2.muted = true;
+        } else {
+          if (level1) {
+            let pause = Math.floor(Math.random() * 5 + 1);
+            setTimeout(() => {
+              this.chick_sound2.muted = false;
+              this.chick_sound2.volume = 0.1;
+              this.chick_sound2.play();
+            }, pause);
+          }
+        }
       } else {
         if (timepassed < 5000) {
           this.playAnimation(this.IMAGES_DEAD);

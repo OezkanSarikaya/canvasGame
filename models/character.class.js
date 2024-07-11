@@ -8,7 +8,9 @@ class Character extends MoveableObject {
   energy = 100;
   // world;
   speed = 15;
-  walking_sound = new Audio("./audio/walking.mp3");
+  // walking_sound = new Audio("./audio/walking.mp3");
+  // jump_sound = new Audio("./audio/jump.mp3");
+  // hurt = new Audio("./audio/hurt.mp3");
 
   offset = {
     top: 120,
@@ -100,19 +102,40 @@ class Character extends MoveableObject {
     let sleepTimer = null;
     setInterval(() => {
       if (this.isDead()) {
+        if (soundsMuted) {
+          // this.chick_sound2.pause();
+          die.muted = true;
+        } else {
+          die.muted = false;
+          die.play();
+        }
         this.playAnimationOnce(this.IMAGES_DEAD);
+        clearAllIntervals();
         setTimeout(() => {
           this.height = 720;
           this.width = 1080;
           this.x -= 100;
           this.y = 0;
           this.otherDirection = false;
+
+          if (soundsMuted) {
+            // this.chick_sound2.pause();
+            start_game_over.muted = true;
+          } else {
+            start_game_over.muted = false;
+            start_game_over.play();
+          }
+
           this.loadImage(this.GAME_OVER);
-          clearAllIntervals();
         }, 1000);
-
-
       } else if (this.isHurt()) {
+        if (soundsMuted) {
+          // this.chick_sound2.pause();
+          hurt.muted = true;
+        } else {
+          hurt.muted = false;
+          hurt.play();
+        }
         sleepTimer = null;
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.isAboveGround()) {
@@ -130,6 +153,13 @@ class Character extends MoveableObject {
         }
         let timepassed = new Date().getTime() - sleepTimer;
         if (timepassed >= 15000) {
+          if (soundsMuted) {
+            // this.chick_sound2.pause();
+            snoring.muted = true;
+          } else {
+            snoring.muted = false;
+            snoring.play();
+          }
           this.playAnimation(this.IMAGES_SLEEP);
         }
       }
@@ -163,7 +193,15 @@ class Character extends MoveableObject {
 
         this.otherDirection = false;
         if (!this.isAboveGround()) {
-          this.walking_sound.play();
+          // playSound('walking_sound');
+
+          if (soundsMuted) {
+            // this.chick_sound2.pause();
+            walking_sound.muted = true;
+          } else {
+            walking_sound.muted = false;
+            walking_sound.play();
+          }
         }
       }
 
@@ -189,11 +227,17 @@ class Character extends MoveableObject {
 
         this.otherDirection = true;
         if (!this.isAboveGround()) {
-          this.walking_sound.play();
+          walking_sound.play();
         }
       }
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
         this.jump();
+        if (soundsMuted) {
+          jump_sound.muted = true;
+        } else {
+          jump_sound.muted = false;
+          jump_sound.play();
+        }
       }
       world.camera_x = -this.x + 100;
     }, 1000 / 60);

@@ -49,7 +49,7 @@ class World {
       this.checkHit();
       this.checkCollect();
       this.collectCoins();
-    }, 1000/20);
+    }, 1000 / 20);
   }
 
   drawBottles(amount) {
@@ -74,19 +74,31 @@ class World {
       this.coins.push(coin);
     }
   }
-
+  throw = new Audio("./audio/throw.mp3");
   checkThrowObjects() {
     if (this.keyboard.D && this.character.ammo > 0) {
       let bottle = new ThrowableObject(this.character.x + 30, this.character.y + 120, this.character.otherDirection);
+      if (soundsMuted) {
+        this.throw.muted = true;
+      } else {
+        this.throw.muted = false;
+        this.throw.play();
+      }
       this.throwableObjects.push(bottle);
       this.ammoBar.setAmmo(this.character.ammo--);
     }
   }
-
+  glass = new Audio("./audio/glass.mp3");
   checkHit() {
     this.level.enemies.forEach((enemy) => {
       this.throwableObjects.forEach((bottle) => {
         if (bottle.isColliding(enemy)) {
+          if (soundsMuted) {
+            this.glass.muted = true;
+          } else {
+            this.glass.muted = false;
+            this.glass.play();
+          }
           enemy.hit();
           enemy.isEnemyDead = true;
           bottle.isSplashed = true;
@@ -101,27 +113,47 @@ class World {
         if (this.character.isAboveGround() && this.character.speedY < 0) {
           enemy.hit();
           enemy.isEnemyDead = true;
+          if (soundsMuted) {
+            // this.chick_sound2.pause();
+            chicken_die.muted = true;
+          } else {
+            chicken_die.muted = false;
+            chicken_die.play();
+          }
         } else if (!enemy.isEnemyDead) {
-          this.character.hit();    
+          this.character.hit();
         }
       }
     });
   }
+  pickBottle = new Audio("./audio/bottle2.mp3");
 
   checkCollect() {
     for (let i = 0; i < this.bottles.length; i++) {
       const enemy = this.bottles[i];
       if (this.character.isColliding(enemy)) {
+        if (soundsMuted) {
+          this.pickBottle.muted = true;
+        } else {
+          this.pickBottle.muted = false;
+          this.pickBottle.play();
+        }
         this.bottles.splice(i, 1);
         this.ammoBar.setAmmo(this.character.ammo++);
       }
     }
   }
-
+  coinSound = new Audio("./audio/coins.mp3");
   collectCoins() {
     for (let i = 0; i < this.coins.length; i++) {
       const enemy = this.coins[i];
       if (this.character.isColliding(enemy)) {
+        if (soundsMuted) {
+          this.coinSound.muted = true;
+        } else {
+          this.coinSound.muted = false;
+          this.coinSound.play();
+        }
         this.coins.splice(i, 1);
         this.coinBar.setCoins(this.character.coins++);
       }
@@ -157,14 +189,13 @@ class World {
     this.ctx.font = "40px Boogaloo";
     this.ctx.fillStyle = "white";
     this.ctx.fillText(this.character.ammo, 60, 60);
-    this.ctx.fillText(this.character.energy, 155, 60);    
+    this.ctx.fillText(this.character.energy, 155, 60);
     this.ctx.fillText(this.character.coins, 255, 60);
     // this.ctx.fillText(this.character.coins, 245, 60);
     if (this.level.enemies[8]) {
-
       this.ctx.fillText(this.level.enemies[8].energy, 1000, 60); // Endboss
     }
- 
+
     // End Space for fixed objects
     this.ctx.translate(this.camera_x, 0);
     this.addToMap(this.character);

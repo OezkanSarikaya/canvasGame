@@ -49,10 +49,10 @@ class Endboss extends MoveableObject {
   YOU_WIN = "./img/9_intro_outro_screens/win/win_2.png";
 
   offset = {
-    top: 30,
-    left: 30,
-    right: 30,
-    bottom: 25,
+    top: 65,
+    left: 50,
+    right: 40,
+    bottom: 40,
   };
 
   constructor() {
@@ -74,6 +74,13 @@ class Endboss extends MoveableObject {
       distance = parseInt(this.characterX) - parseInt(this.x);
       distance = Math.abs(distance);
       if (this.isDead()) {
+        if (soundsMuted) {
+          // this.chick_sound2.pause();
+          endboss_die.muted = true;
+        } else {
+          endboss_die.muted = false;
+          endboss_die.play();
+        }
         this.playAnimationOnce(this.IMAGES_DEAD);
         setTimeout(()=>{
           this.height = 650;
@@ -81,6 +88,20 @@ class Endboss extends MoveableObject {
           this.x = this.characterX -= 100 - 220;
           this.y = 20;
           this.otherDirection = false;
+          
+
+        
+            if (soundsMuted) {
+              // this.chick_sound2.pause();
+              mariachi.muted = true;
+            } else {
+              start_game_over.muted = true;
+              mariachi.muted = false;
+              mariachi.play();
+            }
+
+
+
           this.loadImage(this.YOU_WIN);
           clearAllIntervals();
         },1000);
@@ -89,6 +110,13 @@ class Endboss extends MoveableObject {
         
         // clearInterval(endBoss);
       } else if (this.isHurt()) { 
+        if (soundsMuted) {
+          // this.chick_sound2.pause();
+          endboss_hurt.muted = true;
+        } else {
+          endboss_hurt.muted = false;
+          endboss_hurt.play();
+        }
         this.playAnimation(this.IMAGES_HURT);
       } else if (distance < 600 && distance > 400) {
         this.playAnimation(this.IMAGES_ALERT);

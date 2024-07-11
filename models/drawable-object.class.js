@@ -16,10 +16,10 @@ class DrawableObject {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 
-  text(ctx) {   
-    ctx.font = "50px Arial";
-    ctx.fillText("Hello World", 10, 80);
-  }
+  // text(ctx) {   
+  //   ctx.font = "50px Arial";
+  //   ctx.fillText("Hello World", 10, 80);
+  // }
 
   loadImages(arr) {
     arr.forEach((path) => {
