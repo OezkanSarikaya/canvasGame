@@ -45,7 +45,7 @@ class Chick extends MoveableObject {
           // this.chick_sound2.pause();
           this.chick_sound2.muted = true;
         } else {
-          if (level1) {
+          if (level) {
             let pause = Math.floor(Math.random() * 5 + 1);
             setTimeout(() => {
               this.chick_sound2.muted = false;
@@ -55,11 +55,14 @@ class Chick extends MoveableObject {
           }
         }
       } else {
-        if (timepassed < 5000) {
+        if (timepassed < 4000) {
           this.playAnimation(this.IMAGES_DEAD);
         } else {
-          this.y = -100;
-        }
+          let index = this.world.level.enemies.indexOf(this);
+          if (index > -1) {
+            this.world.level.enemies.splice(index,1);        
+          }    
+        }     
         timepassed = new Date().getTime() - this.lastHit;
       }
     }, 120);

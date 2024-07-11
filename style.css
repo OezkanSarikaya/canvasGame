@@ -124,6 +124,7 @@ canvas {
 }
 
 @media only screen and (max-width: 1080px) {
+/* @media only screen and (max-width: 932px) { */
   h1 {
     display: none;
   }

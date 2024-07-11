@@ -9,7 +9,6 @@
     <script defer src="./js/sounds.js"></script>
     <script defer src="./models/world.class.js"></script>
     <script defer src="./models/keyboard.class.js"></script>
-
     <script defer src="./models/drawable-object.class.js"></script>
     <script defer src="./models/moveable-object.class.js"></script>
     <script defer src="./models/coins.class.js"></script>
@@ -27,11 +26,12 @@
     <script defer src="./js/game.js"></script>
     <script defer src="./models/level.class.js"></script>
     <script defer src="./models/endboss.class.js"></script>
-    <script defer src="./levels/level1.js"></script>
+    <script defer src="./levels/level.js"></script>
+    <!-- <script defer src="./levels/level1.js"></script> -->
     <!-- <script defer src="./levels/level2.js"></script> -->
     <!-- <script defer src="./levels/level3.js"></script> -->
   </head>
-  <body onload="">
+  <body>
     <h1>El Pollo Loco</h1>
     <canvas id="canvas" width="1080" height="720"></canvas>
     <!-- <div class="overlay"> -->
@@ -68,12 +68,6 @@
                 d="M560-131v-68.67q94.67-27.33 154-105 59.33-77.66 59.33-176.33 0-98.67-59-176.67-59-78-154.33-104.66V-831q124 28 202 125.5T840-481q0 127-78 224.5T560-131ZM120-360v-240h160l200-200v640L280-360H120Zm426.67 45.33v-332Q599-628 629.5-582T660-480q0 55-30.83 100.83-30.84 45.84-82.5 64.5Z" />
             </svg>
           </button>
-          <!-- <button>
-            <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000">
-              <path
-                d="M808-61.33 640-226.67q-35 13-76.17 19.84Q522.67-200 480-200q-147.67 0-266.33-82.17Q95-364.33 40-500q20.33-52.33 54.67-100.5 34.33-48.17 82-90.17L56-812l46.67-47.33 750 750-44.67 48ZM480-326.67q13 0 26.83-2 13.84-2 24.84-6.33L315-551.67q-4.33 11.67-6.33 24.84-2 13.16-2 26.83 0 73 50.83 123.17 50.83 50.16 122.5 50.16ZM762.67-294 634.33-422q9-16.33 14-36.5t5-41.5q0-72.33-50.5-122.83T480-673.33q-21.33 0-41.17 4.66Q419-664 402-654L294.67-762q37-16.33 87.66-27.17Q433-800 483.33-800q145.67 0 264 82.17Q865.67-635.67 920-500q-25 62.33-64.83 114.5-39.84 52.17-92.5 91.5Zm-177-176.67L451-605.33q28.67-9 57.17-1.5t49.5 28.16q21 21.34 29.5 48.17 8.5 26.83-1.5 59.83Z" />
-            </svg>
-          </button> -->
         </div>
       </div>
       <div class="panel">
@@ -107,7 +101,6 @@
     <!-- </div> -->
     <div class="bottomControls">
       <button class="button" onclick="fullscreen()">Fullscreen</button>
-
       <a class="button" onclick="startGame()">Start new Game</a>
 
       <svg

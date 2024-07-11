@@ -1,6 +1,9 @@
 class World {
   character = new Character();
-  level = level1;
+
+  level = level;
+
+  // level;
   canvas;
   ctx;
   keyboard;
@@ -20,13 +23,19 @@ class World {
     this.draw();
     this.setWorld();
     this.run();
+    // this.level = gamelevel;
   }
 
   setWorld() {
     this.character.world = this;
+
     // Each enemy can read x position of character (needed for follow function)
     for (let i = 0; i < this.level.enemies.length; i++) {
       this.level.enemies[i].characterX = this.character.x;
+    }  
+
+    for (let i = 0; i < this.level.enemies.length; i++) {
+      this.level.enemies[i].world = this;
     }
   }
 
@@ -114,7 +123,6 @@ class World {
           enemy.hit();
           enemy.isEnemyDead = true;
           if (soundsMuted) {
-            // this.chick_sound2.pause();
             chicken_die.muted = true;
           } else {
             chicken_die.muted = false;
@@ -126,17 +134,16 @@ class World {
       }
     });
   }
-  pickBottle = new Audio("./audio/bottle2.mp3");
 
   checkCollect() {
     for (let i = 0; i < this.bottles.length; i++) {
       const enemy = this.bottles[i];
       if (this.character.isColliding(enemy)) {
         if (soundsMuted) {
-          this.pickBottle.muted = true;
+          pickBottle.muted = true;
         } else {
-          this.pickBottle.muted = false;
-          this.pickBottle.play();
+          pickBottle.muted = false;
+          pickBottle.play();
         }
         this.bottles.splice(i, 1);
         this.ammoBar.setAmmo(this.character.ammo++);
@@ -179,6 +186,7 @@ class World {
     this.addObjectsToMap(this.coins);
     this.addObjectsToMap(this.bottles);
     this.addObjectsToMap(this.level.enemies);
+    // this.addObjectsToMap(this.level.endboss);
     this.addObjectsToMap(this.throwableObjects);
     this.ctx.translate(-this.camera_x, 0);
     // Begin Space for fixed objects
@@ -192,8 +200,8 @@ class World {
     this.ctx.fillText(this.character.energy, 155, 60);
     this.ctx.fillText(this.character.coins, 255, 60);
     // this.ctx.fillText(this.character.coins, 245, 60);
-    if (this.level.enemies[8]) {
-      this.ctx.fillText(this.level.enemies[8].energy, 1000, 60); // Endboss
+    if (this.level.enemies[0]) {
+      this.ctx.fillText(this.level.enemies[0].energy, 1000, 60); // Endboss
     }
 
     // End Space for fixed objects

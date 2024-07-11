@@ -18,5 +18,7 @@ endboss_die = new Audio("./audio/endboss_die.mp3");
 
 start_game_over = new Audio("./audio/start-game-over.mp3");
 
+pickBottle = new Audio("./audio/bottle2.mp3");
+
 
 

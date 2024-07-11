@@ -46,7 +46,8 @@ class Endboss extends MoveableObject {
     "./img/4_enemie_boss_chicken/5_dead/G26.png",
   ];
 
-  YOU_WIN = "./img/9_intro_outro_screens/win/win_2.png";
+  // YOU_WIN = "./img/9_intro_outro_screens/win/win_2.png";
+  YOU_WIN = "./img/9_intro_outro_screens/win/level_2.png";
 
   offset = {
     top: 65,
@@ -82,34 +83,36 @@ class Endboss extends MoveableObject {
           endboss_die.play();
         }
         this.playAnimationOnce(this.IMAGES_DEAD);
-        setTimeout(()=>{
+        setTimeout(() => {
           this.height = 650;
           this.width = 650;
           this.x = this.characterX -= 100 - 220;
           this.y = 20;
           this.otherDirection = false;
-          
 
-        
-            if (soundsMuted) {
-              // this.chick_sound2.pause();
-              mariachi.muted = true;
-            } else {
-              start_game_over.muted = true;
-              mariachi.muted = false;
-              mariachi.play();
-            }
-
-
-
-          this.loadImage(this.YOU_WIN);
+          if (soundsMuted) {
+            // this.chick_sound2.pause();
+            mariachi.muted = true;
+          } else {
+            start_game_over.muted = true;
+            mariachi.muted = false;
+            mariachi.play();
+          }
+         
           clearAllIntervals();
-        },1000);
-       
-        
-        
+          this.loadImage(this.YOU_WIN);
+          // clearAllIntervals();
+          gameLevel = "level2";
+          // setTimeout(() => {
+                
+          // startGame;
+          // }, 3000);
+          // gameLevel = "level2";
+          // startGame();
+        }, 1000);
+
         // clearInterval(endBoss);
-      } else if (this.isHurt()) { 
+      } else if (this.isHurt()) {
         if (soundsMuted) {
           // this.chick_sound2.pause();
           endboss_hurt.muted = true;

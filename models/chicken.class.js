@@ -1,6 +1,7 @@
 class Chicken extends MoveableObject {
   height = 62;
   width = 60;
+  world;
   isEnemyDead = false;
   IMAGES_WALKING = [
     "./img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
@@ -47,7 +48,7 @@ class Chicken extends MoveableObject {
           chicken_sound.muted = true;
         } else {
 
-        if (level1) {
+        if (level) {
           let pause = Math.floor((Math.random() * 5) + 1);
           setTimeout(() => {
             chicken_sound.muted = false;
@@ -59,10 +60,13 @@ class Chicken extends MoveableObject {
       }
 
       } else {
-        if (timepassed < 5000) {
+        if (timepassed < 4000) {
           this.playAnimation(this.IMAGES_DEAD);
         } else {
-          this.y = -100; 
+          let index = this.world.level.enemies.indexOf(this);
+          if (index > -1) {
+            this.world.level.enemies.splice(index,1);        
+          }    
         }     
         timepassed = new Date().getTime() - this.lastHit;
       }
