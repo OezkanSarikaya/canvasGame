@@ -100,8 +100,8 @@
     </div>
     <!-- </div> -->
     <div class="bottomControls">
-      <button class="button" onclick="fullscreen()">Fullscreen</button>
-      <a class="button" onclick="startGame()">Start new Game</a>
+      <!-- <a class="button" onclick="fullscreen()">Fullscreen</a> -->
+      <a id="startLevel" class="button" onclick="startGame()">Start Level 1</a>
 
       <svg
         id="muted"
@@ -129,6 +129,7 @@
       </svg>
 
       <svg
+      onclick="fullscreen()"
         class="svgIcons"
         xmlns="http://www.w3.org/2000/svg"
         height="40px"
@@ -138,7 +139,7 @@
         <path
           d="M120-120v-195.33h66.67v128.66h128.66V-120H120Zm524.67 0v-66.67h128.66v-128.66H840V-120H644.67ZM120-644.67V-840h195.33v66.67H186.67v128.66H120Zm653.33 0v-128.66H644.67V-840H840v195.33h-66.67Z" />
       </svg>
-      <svg
+      <!-- <svg
         class="svgIcons"
         xmlns="http://www.w3.org/2000/svg"
         height="40px"
@@ -147,7 +148,12 @@
         fill="#ffffff">
         <path
           d="M248.67-120v-128.67H120v-66.66h195.33V-120h-66.66Zm396 0v-195.33H840v66.66H711.33V-120h-66.66ZM120-644.67v-66.66h128.67V-840h66.66v195.33H120Zm524.67 0V-840h66.66v128.67H840v66.66H644.67Z" />
-      </svg>
+      </svg> -->
+
+      <svg id="musicNotMuted" class="svgIcons" onclick="muteMusic()" xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#ffffff"><path d="M395.33-120q-64 0-108.66-44.67Q242-209.33 242-273.33T286.67-382q44.66-44.67 108.66-44.67 26.34 0 47.84 7.17 21.5 7.17 38.83 20.17V-840h236v143.33H548.67v423.34q0 64-44.67 108.66Q459.33-120 395.33-120Z"/></svg>
+
+      <svg style="display:none;" id="musicMuted" class="svgIcons" onclick="muteMusic()" xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#ffffff"><path d="M801.33-56 56.67-800.67 104-848l744.67 744.67L801.33-56ZM550.67-496 484-562.67V-840h236v143.33H550.67V-496ZM397.33-120q-64 0-108.66-44.67Q244-209.33 244-273.33T288.67-382q44.66-44.67 108.66-44.67 26.34 0 47.84 7.17 21.5 7.17 38.83 20.17V-468l66.67 66.67v128q0 64-44.67 108.66Q461.33-120 397.33-120Z"/></svg>
+
     </div>
     <div class="portrait">
       <h2>

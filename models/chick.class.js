@@ -29,7 +29,7 @@ class Chick extends MoveableObject {
 
   animate() {
     setInterval(() => {
-      if (!this.isEnemyDead) {
+      if (this.energy >0) {
         this.followCharacter(this.speed, this.characterX);
 
         // this.chick_sound.play();
@@ -38,7 +38,7 @@ class Chick extends MoveableObject {
 
     let timepassed = 0;
     setInterval(() => {
-      if (!this.isEnemyDead) {
+      if (this.energy >0) {
         this.playAnimation(this.IMAGES_WALKING);
 
         if (soundsMuted) {

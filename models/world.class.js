@@ -109,7 +109,7 @@ class World {
             this.glass.play();
           }
           enemy.hit();
-          enemy.isEnemyDead = true;
+          // enemy.isEnemyDead = true;
           bottle.isSplashed = true;
         }
       });
@@ -121,14 +121,15 @@ class World {
       if (this.character.isColliding(enemy)) {
         if (this.character.isAboveGround() && this.character.speedY < 0) {
           enemy.hit();
-          enemy.isEnemyDead = true;
+          // enemy.isEnemyDead = true;
+  
           if (soundsMuted) {
             chicken_die.muted = true;
           } else {
             chicken_die.muted = false;
             chicken_die.play();
           }
-        } else if (!enemy.isEnemyDead) {
+        } else if (enemy.energy > 0) {
           this.character.hit();
         }
       }
@@ -150,16 +151,16 @@ class World {
       }
     }
   }
-  coinSound = new Audio("./audio/coins.mp3");
+  
   collectCoins() {
     for (let i = 0; i < this.coins.length; i++) {
       const enemy = this.coins[i];
       if (this.character.isColliding(enemy)) {
         if (soundsMuted) {
-          this.coinSound.muted = true;
+          coinSound.muted = true;
         } else {
-          this.coinSound.muted = false;
-          this.coinSound.play();
+          coinSound.muted = false;
+          coinSound.play();
         }
         this.coins.splice(i, 1);
         this.coinBar.setCoins(this.character.coins++);
@@ -199,6 +200,8 @@ class World {
     this.ctx.fillText(this.character.ammo, 60, 60);
     this.ctx.fillText(this.character.energy, 155, 60);
     this.ctx.fillText(this.character.coins, 255, 60);
+    this.ctx.fillText("Level: "+gameLevel, 800, 60);
+    
     // this.ctx.fillText(this.character.coins, 245, 60);
     if (this.level.enemies[0]) {
       this.ctx.fillText(this.level.enemies[0].energy, 1000, 60); // Endboss

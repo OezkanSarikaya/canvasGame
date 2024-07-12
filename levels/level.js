@@ -1,7 +1,7 @@
 let level;
 
 function initLevel(gameLevel) {
-  if (gameLevel == 'level1') {
+  if (gameLevel == 1) {
     level = new Level(
       [
         new Endboss(),
@@ -44,7 +44,7 @@ function initLevel(gameLevel) {
 
   
   }
-  if (gameLevel == 'level2') {
+  if (gameLevel == 2) {
     level = new Level(
       [
         new Endboss(),

@@ -102,7 +102,8 @@ class Endboss extends MoveableObject {
           clearAllIntervals();
           this.loadImage(this.YOU_WIN);
           // clearAllIntervals();
-          gameLevel = "level2";
+          gameLevel = 2;
+          document.getElementById('startLevel').innerHTML = "Start Level "+gameLevel;
           // setTimeout(() => {
                 
           // startGame;

@@ -179,7 +179,7 @@ canvas {
 }
 
 @media (orientation: portrait ) {
-  canvas {
+  canvas, #hud {
     display: none;
   }
   .portrait {

@@ -6,11 +6,7 @@ class Character extends MoveableObject {
   ammo = 0;
   coins = 35;
   energy = 100;
-  // world;
   speed = 15;
-  // walking_sound = new Audio("./audio/walking.mp3");
-  // jump_sound = new Audio("./audio/jump.mp3");
-  // hurt = new Audio("./audio/hurt.mp3");
 
   offset = {
     top: 120,
@@ -195,8 +191,7 @@ class Character extends MoveableObject {
         if (!this.isAboveGround()) {
           // playSound('walking_sound');
 
-          if (soundsMuted) {
-            // this.chick_sound2.pause();
+          if (soundsMuted) {       
             walking_sound.muted = true;
           } else {
             walking_sound.muted = false;

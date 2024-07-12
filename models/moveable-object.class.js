@@ -4,6 +4,7 @@ class MoveableObject extends DrawableObject {
   speedY = 0;
   acceleration = 2.5;
   lastHit = 0;
+  energy = 1;
 
   offset = {
     top: 0,
@@ -79,8 +80,7 @@ class MoveableObject extends DrawableObject {
   }
 
   isDead() {
-    return this.energy == 0;
-    
+    return this.energy == 0;    
   }
 
   isHurt() {

@@ -1,8 +1,9 @@
 let world;
-let gameLevel = 'level1';
+let gameLevel = 1;
 let keyboard = new Keyboard();
 let canvas = document.getElementById("canvas");
 let soundsMuted = true;
+let musicMuted = false;
 
 function clearAllIntervals() {
   for (let i = 1; i < 9999; i++) {
@@ -10,11 +11,29 @@ function clearAllIntervals() {
   }
 }
 
+function muteMusic() {
+  if (musicMuted) {
+    musicMuted = false;
+    start_game_over.muted = false;
+    start_game_over.play();
+    document.getElementById("musicNotMuted").style.display = "inline";
+    document.getElementById("musicMuted").style.display = "none";
+  } else {
+    musicMuted = true;
+    start_game_over.muted = true;
+    mariachi.muted = true;
+    document.getElementById("musicNotMuted").style.display = "none";
+    document.getElementById("musicMuted").style.display = "inline";
+  }
+}
+
 function muteSounds() {
   if (soundsMuted) {
     soundsMuted = false;
-    start_game_over.muted = false;
-    start_game_over.play();
+    if (!musicMuted) {
+      start_game_over.muted = false;
+      start_game_over.play();
+    }
     document.getElementById("mobileMuted").style.display = "none";
     document.getElementById("mobileNotMuted").style.display = "inline";
   } else {
