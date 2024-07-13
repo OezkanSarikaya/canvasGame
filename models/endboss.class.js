@@ -75,11 +75,9 @@ class Endboss extends MoveableObject {
     let follow = false;
     let awake = false;
     let distance;
-    let endBoss = setInterval(() => {      
-
+    let endBoss = setInterval(() => {
       distance = parseInt(this.characterX) - parseInt(this.x);
       distance = Math.abs(distance);
-      // console.log("Distance: "+distance+" Character-X: "+this.characterX);
       if (!awake && parseInt(this.characterX) > 1900) {
         awake = true;
       }
@@ -94,7 +92,6 @@ class Endboss extends MoveableObject {
         }
         this.playAnimationOnce(this.IMAGES_DEAD);
         setTimeout(() => {
-    
           this.height = 650;
           this.width = 650;
           this.x = this.characterX -= 100 - 220;
@@ -116,29 +113,24 @@ class Endboss extends MoveableObject {
           }
 
           clearAllIntervals();
-          if (gameLevel<=4) {
+          if (gameLevel <= 4) {
             gameLevel++;
           }
-          
-          if (gameLevel==4) {
-            this.loadImage(this.YOU_WIN);
-            gameLevel=1;
-          }
-          if (gameLevel==1) {
-            this.loadImage(this.level1);
-          }
-          if (gameLevel==2) {
-            this.loadImage(this.level2);
-          }
 
-          if (gameLevel==3) {
-            this.loadImage(this.level3);
+          switch (gameLevel) {
+            case 1:
+              this.loadImage(this.level1);
+              break;
+            case 2:
+              this.loadImage(this.level2);
+              break;
+            case 3:
+              this.loadImage(this.level3);
+              break;
+            case 4:
+              this.loadImage(this.YOU_WIN);
+              break;
           }
-      
-          
-          // gameLevel = 2;
-          
-          document.getElementById("startLevel").innerHTML = "Start Level " + gameLevel;
         }, 1000);
       } else if (this.isHurt()) {
         follow = false;
@@ -149,7 +141,7 @@ class Endboss extends MoveableObject {
           endboss_hurt.play();
         }
         this.playAnimation(this.IMAGES_HURT);
-      } else if (awake && distance <= 900 && distance > 500) {  
+      } else if (awake && distance <= 900 && distance > 500) {
         follow = true;
         this.playAnimation(this.IMAGES_WALKING);
       } else if (awake && distance <= 500 && distance > 200) {
@@ -159,10 +151,6 @@ class Endboss extends MoveableObject {
         follow = true;
         this.playAnimation(this.IMAGES_ATTACK);
       }
-      // else {
-      //   follow = true;
-      //   this.playAnimation(this.IMAGES_WALKING);
-      // }
     }, 200);
 
     setInterval(() => {

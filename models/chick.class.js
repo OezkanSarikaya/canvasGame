@@ -18,9 +18,7 @@ class Chick extends MoveableObject {
     left: 3,
     right: 3,
     bottom: 3,
-  };
-
- 
+  }; 
 
   /**
    * Constructor for class chick 

@@ -4,19 +4,24 @@ let keyboard = new Keyboard();
 let canvas = document.getElementById("canvas");
 let soundsMuted = true;
 let musicMuted = false;
-
-// YOU_WIN = "./img/9_intro_outro_screens/win/win_2.png";
 level1 = "./img/9_intro_outro_screens/win/level_1.png";
-// level2 = "./img/9_intro_outro_screens/win/level_2.png";
-// level3 = "./img/9_intro_outro_screens/win/level_3.png";
-// canvas.style.backgroundColor = "#601E1C";
-
-document.getElementById("startLevel").innerHTML = "Start Level " + gameLevel;
 
 function clearAllIntervals() {
   for (let i = 1; i < 9999; i++) {
     window.clearInterval(i);
   }
+}
+
+function closePopup() {
+  document.getElementById('popupBackground').classList.add('d-none');
+  document.getElementById('help').classList.add('d-none');
+  document.getElementById('legal').classList.add('d-none');
+  document.getElementById('privacy').classList.add('d-none');
+}
+
+function openPopup(container) {
+  document.getElementById('popupBackground').classList.remove('d-none');
+  document.getElementById(container).classList.remove('d-none');
 }
 
 function muteMusic() {
@@ -55,7 +60,6 @@ function muteSounds() {
     document.getElementById("mobileNotMuted").style.display = "none";
     document.getElementById("mobileMuted").style.display = "inline";
   }
-
   if (document.getElementById("muted")) {
     if (soundsMuted) {
       document.getElementById("muted").style.display = "inline";
@@ -63,7 +67,6 @@ function muteSounds() {
       document.getElementById("muted").style.display = "none";
     }
   }
-
   if (document.getElementById("notMuted")) {
     if (soundsMuted) {
       document.getElementById("notMuted").style.display = "none";
@@ -85,23 +88,7 @@ function level1Screen() {
 
 function startGame() {
   clearAllIntervals();
-
-  // if (gameLevel == 4) {
-  //   canvas.style.backgroundImage = 'url("' + YOU_WIN + '")';
-  // }
-  // if (gameLevel == 1) {
-  //   canvas.style.backgroundImage = 'url("' + level1 + '")';
-  // }
-  // if (gameLevel == 2) {
-  //   canvas.style.backgroundImage = 'url("' + level2 + '")';
-  // }
-
-  // if (gameLevel == 3) {
-  //   canvas.style.backgroundImage = 'url("' + level3 + '")';
-  // }
-
   initLevel(gameLevel);
-
   if (soundsMuted) {
     rooster_crow.muted = true;
     start_game_over.muted = true;

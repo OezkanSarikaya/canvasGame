@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El Pollo Loco</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <script defer src="./js/sounds.js"></script>
     <script defer src="./models/world.class.js"></script>
     <script defer src="./models/keyboard.class.js"></script>
@@ -30,8 +35,123 @@
     <script defer src="./levels/level.js"></script>
   </head>
   <body>
+    <div id="popupBackground" onclick="closePopup()" class="d-none animate__animated animate__fadeIn"></div>
+    <div class="popup d-none animate__animated animate__zoomIn" id="legal">
+      <span onclick="closePopup()" class="closeIcon">
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000">
+          <path
+            d="m251.33-204.67-46.66-46.66L433.33-480 204.67-708.67l46.66-46.66L480-526.67l228.67-228.66 46.66 46.66L526.67-480l228.66 228.67-46.66 46.66L480-433.33 251.33-204.67Z" />
+        </svg>
+      </span>
+      <h2>Legal notice</h2>
+      <div class="center">
+        Özkan Sarikaya<br />
+        Muster Straße 47<br />
+        12345 Musterstadt<br /><br />
+        Phone: <a href="tel:+">123456</a><br />
+        E-Mail: <a href="mailto:">fakemail@test.de</a><br />
+      </div>
+    </div>
+    <div class="popup d-none animate__animated animate__zoomIn" id="privacy">
+      <span onclick="closePopup()" class="closeIcon">
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000">
+          <path
+            d="m251.33-204.67-46.66-46.66L433.33-480 204.67-708.67l46.66-46.66L480-526.67l228.67-228.66 46.66 46.66L526.67-480l228.66 228.67-46.66 46.66L480-433.33 251.33-204.67Z" />
+        </svg>
+      </span>
+      <h2>Privacy policy</h2>
+      <h3>1. Privacy at a Glance</h3>
+      <h3>General Information</h3>
+      <p>
+        The following notes provide a simple overview of what happens to your personal data when you visit this website.
+        Personal data is any data with which you can be personally identified. Detailed information on the subject of
+        data protection can be found in our privacy policy listed below this text.
+      </p>
+      <h3>Data Collection on This Website</h3>
+      <h4>Who is responsible for data collection on this website?</h4>
+      <p>
+        The data processing on this website is carried out by the website operator. You can find the operator's contact
+        details in the section “Notice on the Responsible Party” in this privacy policy.
+      </p>
+      <h4>How do we collect your data?</h4>
+      <p>
+        Your data is collected firstly by you providing it to us. This could, for example, be data you enter in a
+        contact form.
+      </p>
+      <p>
+        Other data is collected automatically or with your consent when you visit the website by our IT systems. This is
+        mainly technical data (e.g., internet browser, operating system, or time of page access). The collection of this
+        data happens automatically as soon as you enter this website.
+      </p>
+      <h4>What do we use your data for?</h4>
+      <p>
+        Part of the data is collected to ensure the error-free provision of the website. Other data can be used to
+        analyze your user behavior.
+      </p>
+      <h4>What rights do you have regarding your data?</h4>
+      <p>
+        You have the right at any time to receive information free of charge about the origin, recipient, and purpose of
+        your stored personal data. You also have the right to request the correction or deletion of this data. If you
+        have given consent for data processing, you can revoke this consent at any time for the future. You also have
+        the right, under certain circumstances, to request the restriction of the processing of your personal data.
+        Furthermore, you have the right to lodge a complaint with the competent supervisory authority.
+      </p>
+      <p>For this and any other questions on the subject of data protection, you can contact us at any time.</p>
+      <h3>2. General Information and Mandatory Information</h3>
+      <h3>Data Protection</h3>
+      <p>
+        The operators of these pages take the protection of your personal data very seriously. We treat your personal
+        data confidentially and in accordance with the statutory data protection regulations and this privacy policy.
+      </p>
+      <p>
+        When you use this website, various personal data are collected. Personal data is data with which you can be
+        personally identified. This privacy policy explains what data we collect and what we use it for. It also
+        explains how and for what purpose this happens.
+      </p>
+      <p>
+        We would like to point out that data transmission over the Internet (e.g., communication by e-mail) can have
+        security gaps. A complete protection of the data against access by third parties is not possible.
+      </p>
+      <h3>Notice on the Responsible Party</h3>
+      <p>The responsible party for data processing on this website is:</p>
+      <p>
+        Example Company<br />
+        Sample Street 10<br />
+      </p>
+    </div>
+    <div class="popup d-none animate__animated animate__zoomIn" id="help">
+      <span onclick="closePopup()" class="closeIcon">
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000">
+          <path
+            d="m251.33-204.67-46.66-46.66L433.33-480 204.67-708.67l46.66-46.66L480-526.67l228.67-228.66 46.66 46.66L526.67-480l228.66 228.67-46.66 46.66L480-433.33 251.33-204.67Z" />
+        </svg>
+      </span>
+      <h2>Help</h2>
+      <table>
+        <tr>
+          <th>Key</th>
+          <th>Action</th>
+        </tr>
+        <tr>
+          <td>Left arrow</td>
+          <td>Move left</td>
+        </tr>
+        <tr>
+          <td>Right arrow</td>
+          <td>Move right</td>
+        </tr>
+        <tr>
+          <td>Space</td>
+          <td>Jump</td>
+        </tr>
+        <tr>
+          <td>D</td>
+          <td>Throw</td>
+        </tr>
+      </table>
+    </div>
     <h1>El Pollo Loco</h1>
-    <canvas id="canvas" width="1080" height="720"></canvas>
+    <canvas id="canvas" width="1080" height="720"> </canvas>
     <div id="hud">
       <div class="topPanel">
         <div class="panel-wrapper">
@@ -65,36 +185,33 @@
                 d="M560-131v-68.67q94.67-27.33 154-105 59.33-77.66 59.33-176.33 0-98.67-59-176.67-59-78-154.33-104.66V-831q124 28 202 125.5T840-481q0 127-78 224.5T560-131ZM120-360v-240h160l200-200v640L280-360H120Zm426.67 45.33v-332Q599-628 629.5-582T660-480q0 55-30.83 100.83-30.84 45.84-82.5 64.5Z" />
             </svg>
           </button>
-
-
-<button>
-          <svg
-          id="mobileMusicNotMuted"
-          class="svgIcons"
-          onclick="muteMusic()"
-          xmlns="http://www.w3.org/2000/svg"
-          height="40px"
-          viewBox="0 -960 960 960"
-          width="40px"
-          fill="#000000">
-          <path
-            d="M395.33-120q-64 0-108.66-44.67Q242-209.33 242-273.33T286.67-382q44.66-44.67 108.66-44.67 26.34 0 47.84 7.17 21.5 7.17 38.83 20.17V-840h236v143.33H548.67v423.34q0 64-44.67 108.66Q459.33-120 395.33-120Z" />
-        </svg>
-        <svg
-          style="display: none"
-          id="mobileMusicMuted"
-          class="svgIcons"
-          onclick="muteMusic()"
-          xmlns="http://www.w3.org/2000/svg"
-          height="40px"
-          viewBox="0 -960 960 960"
-          width="40px"
-          fill="#000000">
-          <path
-            d="M801.33-56 56.67-800.67 104-848l744.67 744.67L801.33-56ZM550.67-496 484-562.67V-840h236v143.33H550.67V-496ZM397.33-120q-64 0-108.66-44.67Q244-209.33 244-273.33T288.67-382q44.66-44.67 108.66-44.67 26.34 0 47.84 7.17 21.5 7.17 38.83 20.17V-468l66.67 66.67v128q0 64-44.67 108.66Q461.33-120 397.33-120Z" />
-        </svg>
-      </button>
-
+          <button>
+            <svg
+              id="mobileMusicNotMuted"
+              class="svgIcons"
+              onclick="muteMusic()"
+              xmlns="http://www.w3.org/2000/svg"
+              height="40px"
+              viewBox="0 -960 960 960"
+              width="40px"
+              fill="#000000">
+              <path
+                d="M395.33-120q-64 0-108.66-44.67Q242-209.33 242-273.33T286.67-382q44.66-44.67 108.66-44.67 26.34 0 47.84 7.17 21.5 7.17 38.83 20.17V-840h236v143.33H548.67v423.34q0 64-44.67 108.66Q459.33-120 395.33-120Z" />
+            </svg>
+            <svg
+              style="display: none"
+              id="mobileMusicMuted"
+              class="svgIcons"
+              onclick="muteMusic()"
+              xmlns="http://www.w3.org/2000/svg"
+              height="40px"
+              viewBox="0 -960 960 960"
+              width="40px"
+              fill="#000000">
+              <path
+                d="M801.33-56 56.67-800.67 104-848l744.67 744.67L801.33-56ZM550.67-496 484-562.67V-840h236v143.33H550.67V-496ZM397.33-120q-64 0-108.66-44.67Q244-209.33 244-273.33T288.67-382q44.66-44.67 108.66-44.67 26.34 0 47.84 7.17 21.5 7.17 38.83 20.17V-468l66.67 66.67v128q0 64-44.67 108.66Q461.33-120 397.33-120Z" />
+            </svg>
+          </button>
         </div>
       </div>
       <div class="panel">
@@ -126,67 +243,76 @@
       </div>
     </div>
     <div class="bottomControls">
-      <a id="startLevel" class="button" onclick="level1Screen()">Start Level 1</a>
-      <svg
-        id="muted"
-        class="svgIcons"
-        onclick="muteSounds()"
-        xmlns="http://www.w3.org/2000/svg"
-        height="40px"
-        viewBox="0 -960 960 960"
-        width="40px"
-        fill="#ffffff">
-        <path
-          d="M806-56 677.67-184.33q-27 18.66-58 32.16-31 13.5-64.34 21.17v-68.67q20-6.33 38.84-13.66 18.83-7.34 35.5-19l-154.34-155V-160l-200-200h-160v-240H262L51.33-810.67 98.67-858l754.66 754L806-56Zm-26.67-232-48-48q19-33 28.17-69.67 9.17-36.66 9.17-75.33 0-100-58.34-179-58.33-79-155-102.33V-831q124 28 202 125.5t78 224.5q0 51.67-14.16 100.67-14.17 49-41.84 92.33Zm-134-134-90-90v-130q47 22 73.5 66t26.5 96q0 15-2.5 29.5t-7.5 28.5Zm-170-170-104-104 104-104v208Z" />
-      </svg>
-      <svg
-        id="notMuted"
-        class="svgIcons"
-        onclick="muteSounds()"
-        xmlns="http://www.w3.org/2000/svg"
-        height="40px"
-        viewBox="0 -960 960 960"
-        width="40px"
-        fill="#ffffff">
-        <path
-          d="M560-131v-68.67q94.67-27.33 154-105 59.33-77.66 59.33-176.33 0-98.67-59-176.67-59-78-154.33-104.66V-831q124 28 202 125.5T840-481q0 127-78 224.5T560-131ZM120-360v-240h160l200-200v640L280-360H120Zm426.67 45.33v-332Q599-628 629.5-582T660-480q0 55-30.83 100.83-30.84 45.84-82.5 64.5Z" />
-      </svg>
-      <svg
-        onclick="fullscreen()"
-        class="svgIcons"
-        xmlns="http://www.w3.org/2000/svg"
-        height="40px"
-        viewBox="0 -960 960 960"
-        width="40px"
-        fill="#ffffff">
-        <path
-          d="M120-120v-195.33h66.67v128.66h128.66V-120H120Zm524.67 0v-66.67h128.66v-128.66H840V-120H644.67ZM120-644.67V-840h195.33v66.67H186.67v128.66H120Zm653.33 0v-128.66H644.67V-840H840v195.33h-66.67Z" />
-      </svg>
-      <svg
-        id="musicNotMuted"
-        class="svgIcons"
-        onclick="muteMusic()"
-        xmlns="http://www.w3.org/2000/svg"
-        height="40px"
-        viewBox="0 -960 960 960"
-        width="40px"
-        fill="#ffffff">
-        <path
-          d="M395.33-120q-64 0-108.66-44.67Q242-209.33 242-273.33T286.67-382q44.66-44.67 108.66-44.67 26.34 0 47.84 7.17 21.5 7.17 38.83 20.17V-840h236v143.33H548.67v423.34q0 64-44.67 108.66Q459.33-120 395.33-120Z" />
-      </svg>
-      <svg
-        style="display: none"
-        id="musicMuted"
-        class="svgIcons"
-        onclick="muteMusic()"
-        xmlns="http://www.w3.org/2000/svg"
-        height="40px"
-        viewBox="0 -960 960 960"
-        width="40px"
-        fill="#ffffff">
-        <path
-          d="M801.33-56 56.67-800.67 104-848l744.67 744.67L801.33-56ZM550.67-496 484-562.67V-840h236v143.33H550.67V-496ZM397.33-120q-64 0-108.66-44.67Q244-209.33 244-273.33T288.67-382q44.66-44.67 108.66-44.67 26.34 0 47.84 7.17 21.5 7.17 38.83 20.17V-468l66.67 66.67v128q0 64-44.67 108.66Q461.33-120 397.33-120Z" />
-      </svg>
+      <div>
+        <a href="#" onclick="openPopup('help')">Help</a>
+        <a href="#" onclick="openPopup('legal')">Legal notice</a>
+        <a href="#" onclick="openPopup('privacy')">Privacy policy</a>
+      </div>
+      <div>
+        <a id="startLevel" class="button" onclick="level1Screen()">START</a>
+      </div>
+      <div>
+        <svg
+          id="muted"
+          class="svgIcons"
+          onclick="muteSounds()"
+          xmlns="http://www.w3.org/2000/svg"
+          height="40px"
+          viewBox="0 -960 960 960"
+          width="40px"
+          fill="#ffffff">
+          <path
+            d="M806-56 677.67-184.33q-27 18.66-58 32.16-31 13.5-64.34 21.17v-68.67q20-6.33 38.84-13.66 18.83-7.34 35.5-19l-154.34-155V-160l-200-200h-160v-240H262L51.33-810.67 98.67-858l754.66 754L806-56Zm-26.67-232-48-48q19-33 28.17-69.67 9.17-36.66 9.17-75.33 0-100-58.34-179-58.33-79-155-102.33V-831q124 28 202 125.5t78 224.5q0 51.67-14.16 100.67-14.17 49-41.84 92.33Zm-134-134-90-90v-130q47 22 73.5 66t26.5 96q0 15-2.5 29.5t-7.5 28.5Zm-170-170-104-104 104-104v208Z" />
+        </svg>
+        <svg
+          id="notMuted"
+          class="svgIcons"
+          onclick="muteSounds()"
+          xmlns="http://www.w3.org/2000/svg"
+          height="40px"
+          viewBox="0 -960 960 960"
+          width="40px"
+          fill="#ffffff">
+          <path
+            d="M560-131v-68.67q94.67-27.33 154-105 59.33-77.66 59.33-176.33 0-98.67-59-176.67-59-78-154.33-104.66V-831q124 28 202 125.5T840-481q0 127-78 224.5T560-131ZM120-360v-240h160l200-200v640L280-360H120Zm426.67 45.33v-332Q599-628 629.5-582T660-480q0 55-30.83 100.83-30.84 45.84-82.5 64.5Z" />
+        </svg>
+        <svg
+          onclick="fullscreen()"
+          class="svgIcons"
+          xmlns="http://www.w3.org/2000/svg"
+          height="40px"
+          viewBox="0 -960 960 960"
+          width="40px"
+          fill="#ffffff">
+          <path
+            d="M120-120v-195.33h66.67v128.66h128.66V-120H120Zm524.67 0v-66.67h128.66v-128.66H840V-120H644.67ZM120-644.67V-840h195.33v66.67H186.67v128.66H120Zm653.33 0v-128.66H644.67V-840H840v195.33h-66.67Z" />
+        </svg>
+        <svg
+          id="musicNotMuted"
+          class="svgIcons"
+          onclick="muteMusic()"
+          xmlns="http://www.w3.org/2000/svg"
+          height="40px"
+          viewBox="0 -960 960 960"
+          width="40px"
+          fill="#ffffff">
+          <path
+            d="M395.33-120q-64 0-108.66-44.67Q242-209.33 242-273.33T286.67-382q44.66-44.67 108.66-44.67 26.34 0 47.84 7.17 21.5 7.17 38.83 20.17V-840h236v143.33H548.67v423.34q0 64-44.67 108.66Q459.33-120 395.33-120Z" />
+        </svg>
+        <svg
+          style="display: none"
+          id="musicMuted"
+          class="svgIcons"
+          onclick="muteMusic()"
+          xmlns="http://www.w3.org/2000/svg"
+          height="40px"
+          viewBox="0 -960 960 960"
+          width="40px"
+          fill="#ffffff">
+          <path
+            d="M801.33-56 56.67-800.67 104-848l744.67 744.67L801.33-56ZM550.67-496 484-562.67V-840h236v143.33H550.67V-496ZM397.33-120q-64 0-108.66-44.67Q244-209.33 244-273.33T288.67-382q44.66-44.67 108.66-44.67 26.34 0 47.84 7.17 21.5 7.17 38.83 20.17V-468l66.67 66.67v128q0 64-44.67 108.66Q461.33-120 397.33-120Z" />
+        </svg>
+      </div>
     </div>
     <div class="portrait">
       <h2>

@@ -122,7 +122,7 @@ class Character extends MoveableObject {
 
           this.loadImage(this.GAME_OVER);
           gameLevel = 1;
-          document.getElementById('startLevel').innerHTML = `Start Level ${gameLevel}`;
+          // document.getElementById('startLevel').innerHTML = `Start Level ${gameLevel}`;
         }, 1000);
       } else if (this.isHurt()) {
         if (soundsMuted) {

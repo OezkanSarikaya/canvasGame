@@ -14,6 +14,84 @@
   src: url("./fonts/holtwood-one-sc-v21-latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
+.d-none {
+  display: none;
+}
+
+.animate__animated {
+  --animate-duration: 0.2s;
+}
+
+#popupBackground {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.closeIcon svg {
+  cursor: pointer;
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  padding: 4px;
+}
+
+#help,
+#legal {
+  font-size: 24px;
+}
+
+#help a,
+#legal a {
+  color: #813013;
+  text-decoration: none;
+  font-size: 24px;
+}
+
+#privacy {
+  padding: 24px;
+  max-height: 720px;
+  overflow-y: auto;
+}
+
+#help table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  width: 400px;
+}
+
+#help td,
+#help th {
+  text-align: center;
+  border: 1px solid black;
+}
+
+#help tr {
+  height: 50px;
+}
+
+.center {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.popup {
+  z-index: 1000;
+  max-width: 1080px;
+  min-height: 720px;
+  color: black;
+  width: 100%;
+  border-radius: 24px;
+  position: absolute;
+  top: 18vh;
+  background: rgb(242, 191, 112);
+  background: linear-gradient(180deg, rgba(242, 191, 112, 1) 0%, rgba(233, 155, 89, 1) 100%);
+}
+
 body {
   display: flex;
   font-family: "Boogaloo";
@@ -60,6 +138,7 @@ span {
   font-size: 36px;
   color: white;
 }
+
 .button {
   cursor: pointer;
 }
@@ -93,10 +172,53 @@ h2 {
 
 .bottomControls {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 24px;
   margin-top: 16px;
+  max-width: 1080px;
+  width: 100%;
+}
+
+.bottomControls a {
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 100;
+  margin-right: 16px;
+  transition: color 125ms ease-in-out;
+}
+
+.bottomControls a:hover:not(.button) {
+  color: rgb(255, 197, 34);
+}
+
+.bottomControls .svgIcons {
+  transition: fill 125ms ease-in-out;
+}
+
+.bottomControls .svgIcons:hover {
+  fill: rgb(255, 197, 34);
+}
+
+.bottomControls .button {
+  border: unset;
+  background-color: rgb(255, 197, 34);
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 197, 34, 1) 0%,
+    rgba(255, 221, 0, 1) 50%,
+    rgba(255, 157, 0, 1) 100%
+  );
+  padding: 8px 30px;
+  border-radius: 16px;
+  color: #813013;
+  font-size: 36px;
+  transition: padding 125ms ease-in-out;
+  transform: translateY(0);
+}
+
+.bottomControls .button:hover {
+  padding: 8px 80px;
 }
 
 .svgIcons {
@@ -119,8 +241,11 @@ canvas {
   display: none;
 }
 
+/*///////////////////////////////////////
+///       MEDIA QUERIES              ///
+///////////////////////////////////////*/
+
 @media only screen and (max-width: 1080px) {
-  /* @media only screen and (max-width: 932px) { */
   h1 {
     display: none;
   }
