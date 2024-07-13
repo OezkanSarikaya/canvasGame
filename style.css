@@ -96,6 +96,7 @@ h2 {
   justify-content: center;
   align-items: center;
   gap: 24px;
+  margin-top: 16px;
 }
 
 .svgIcons {
@@ -113,18 +114,13 @@ canvas {
   background-size: 100% 100%;
 }
 
-.overlay {
-  /* display: flex;
-  flex-direction: column; */
-}
-
 .portrait,
 #hud {
   display: none;
 }
 
 @media only screen and (max-width: 1080px) {
-/* @media only screen and (max-width: 932px) { */
+  /* @media only screen and (max-width: 932px) { */
   h1 {
     display: none;
   }
@@ -153,7 +149,6 @@ canvas {
     display: flex;
     justify-content: space-between;
     padding: 0 16px;
-    /* gap:24px; */
   }
 
   .topPanel {
@@ -178,8 +173,9 @@ canvas {
   }
 }
 
-@media (orientation: portrait ) {
-  canvas, #hud {
+@media (orientation: portrait) {
+  canvas,
+  #hud {
     display: none;
   }
   .portrait {
@@ -187,7 +183,7 @@ canvas {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding:24px;
+    padding: 24px;
   }
   .portrait img {
     width: 100%;

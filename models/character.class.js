@@ -4,7 +4,7 @@ class Character extends MoveableObject {
   x = -900;
   y = 640 - this.height;
   ammo = 0;
-  coins = 35;
+  coins = 0;
   energy = 100;
   speed = 15;
 
@@ -99,7 +99,6 @@ class Character extends MoveableObject {
     setInterval(() => {
       if (this.isDead()) {
         if (soundsMuted) {
-          // this.chick_sound2.pause();
           die.muted = true;
         } else {
           die.muted = false;
@@ -115,7 +114,6 @@ class Character extends MoveableObject {
           this.otherDirection = false;
 
           if (soundsMuted) {
-            // this.chick_sound2.pause();
             start_game_over.muted = true;
           } else {
             start_game_over.muted = false;
@@ -123,10 +121,11 @@ class Character extends MoveableObject {
           }
 
           this.loadImage(this.GAME_OVER);
+          gameLevel = 1;
+          document.getElementById('startLevel').innerHTML = `Start Level ${gameLevel}`;
         }, 1000);
       } else if (this.isHurt()) {
         if (soundsMuted) {
-          // this.chick_sound2.pause();
           hurt.muted = true;
         } else {
           hurt.muted = false;
@@ -150,7 +149,6 @@ class Character extends MoveableObject {
         let timepassed = new Date().getTime() - sleepTimer;
         if (timepassed >= 15000) {
           if (soundsMuted) {
-            // this.chick_sound2.pause();
             snoring.muted = true;
           } else {
             snoring.muted = false;
@@ -168,30 +166,24 @@ class Character extends MoveableObject {
     // Speed for move character
     setInterval(() => {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-        // this.world.level.backgroundObjects[1].x += this.speed-3;
         this.moveRight();
-        // world.camera_x += 30;
-        this.world.level.backgroundObjects[1].x += speedLayerSun;
-
-        this.world.level.backgroundObjects[0].x += speedLayerSun;
-        this.world.level.backgroundObjects[2].x += speedLayer3;
-        this.world.level.backgroundObjects[5].x += speedLayerSun;
-        this.world.level.backgroundObjects[6].x += speedLayer3;
-        this.world.level.backgroundObjects[9].x += speedLayerSun;
-        this.world.level.backgroundObjects[10].x += speedLayer3;
-        this.world.level.backgroundObjects[13].x += speedLayerSun;
-        this.world.level.backgroundObjects[14].x += speedLayer3;
-
-        this.world.level.backgroundObjects[3].x += speedLayer2;
-        this.world.level.backgroundObjects[7].x += speedLayer2;
-        this.world.level.backgroundObjects[11].x += speedLayer2;
-        this.world.level.backgroundObjects[15].x += speedLayer2;
+        this.world.level.backgroundObjects.forEach((obj) => {
+          switch (obj.layer) {
+            case 0:
+              obj.x += speedLayerSun;
+              break;
+            case 2:
+              obj.x += speedLayer2;
+              break;
+            case 3:
+              obj.x += speedLayer3;
+              break;
+          }
+        });
 
         this.otherDirection = false;
         if (!this.isAboveGround()) {
-          // playSound('walking_sound');
-
-          if (soundsMuted) {       
+          if (soundsMuted) {
             walking_sound.muted = true;
           } else {
             walking_sound.muted = false;
@@ -201,24 +193,21 @@ class Character extends MoveableObject {
       }
 
       if (this.world.keyboard.LEFT && this.x > -610) {
-        // this.world.level.backgroundObjects[1].x -= this.speed-3;
         this.moveLeft();
 
-        this.world.level.backgroundObjects[1].x -= speedLayerSun;
-
-        this.world.level.backgroundObjects[0].x -= speedLayerSun;
-        this.world.level.backgroundObjects[2].x -= speedLayer3;
-        this.world.level.backgroundObjects[5].x -= speedLayerSun;
-        this.world.level.backgroundObjects[6].x -= speedLayer3;
-        this.world.level.backgroundObjects[9].x -= speedLayerSun;
-        this.world.level.backgroundObjects[10].x -= speedLayer3;
-        this.world.level.backgroundObjects[13].x -= speedLayerSun;
-        this.world.level.backgroundObjects[14].x -= speedLayer3;
-
-        this.world.level.backgroundObjects[3].x -= speedLayer2;
-        this.world.level.backgroundObjects[7].x -= speedLayer2;
-        this.world.level.backgroundObjects[11].x -= speedLayer2;
-        this.world.level.backgroundObjects[15].x -= speedLayer2;
+        this.world.level.backgroundObjects.forEach((obj) => {
+          switch (obj.layer) {
+            case 0:
+              obj.x -= speedLayerSun;
+              break;
+            case 2:
+              obj.x -= speedLayer2;
+              break;
+            case 3:
+              obj.x -= speedLayer3;
+              break;
+          }
+        });
 
         this.otherDirection = true;
         if (!this.isAboveGround()) {

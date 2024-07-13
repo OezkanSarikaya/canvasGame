@@ -4,8 +4,6 @@ class DrawableObject {
   currentImage = 0;
   x = 120;
   y = 250;
-  //   height = 100;
-  //   width = 100;
 
   loadImage(path) {
     this.img = new Image();
@@ -15,11 +13,6 @@ class DrawableObject {
   draw(ctx) {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
-
-  // text(ctx) {   
-  //   ctx.font = "50px Arial";
-  //   ctx.fillText("Hello World", 10, 80);
-  // }
 
   loadImages(arr) {
     arr.forEach((path) => {
@@ -39,12 +32,14 @@ class DrawableObject {
       this instanceof Bottles ||
       this instanceof Coins
     ) {
+      // Outer Frame
       ctx.beginPath();
       ctx.lineWidth = "1";
       ctx.strokeStyle = "blue";
       ctx.rect(this.x, this.y, this.width, this.height);
       ctx.stroke();
 
+      // Inner Frame
       ctx.beginPath();
       ctx.lineWidth = "1";
       ctx.strokeStyle = "red";

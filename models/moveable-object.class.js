@@ -15,8 +15,7 @@ class MoveableObject extends DrawableObject {
 
   applyGravity() {
     setInterval(() => {
-      if (this.isAboveGround() || this.speedY > 0) {
-        // if (this.isAboveGround() ) {
+      if (this.isAboveGround() || this.speedY > 0) {  
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
       }
@@ -31,28 +30,23 @@ class MoveableObject extends DrawableObject {
     }
   }
 
-  // character.isColliding(chicken)
   isColliding(obj) {
     return (
       this.x + this.width - this.offset.right > obj.x + obj.offset.left &&
       this.y + this.height - this.offset.bottom > obj.y + obj.offset.top &&
       this.x + this.offset.left < obj.x + obj.width - obj.offset.right &&
       this.y + this.offset.top < obj.y + obj.height - obj.offset.bottom
-      // &&  obj.onCollisionCourse
     );
-    // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt.
-    // Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+ 
   }
 
   hit() {
-    // if (isHurt()) {
     this.energy -= 1;
     if (this.energy < 0) {
       this.energy = 0;
     } else {
       this.lastHit = new Date().getTime();
     }
-  // }
   }
 
   throw(otherDirection) {
@@ -63,11 +57,9 @@ class MoveableObject extends DrawableObject {
       if (otherDirection && !this.isSplashed) {
         this.x -= 10;
       }
-
       if (!otherDirection && !this.isSplashed) {
         this.x += 10;
       }
-
       if (this.isSplashed) {
         this.x = this.x;
         this.y = this.y;
@@ -75,7 +67,6 @@ class MoveableObject extends DrawableObject {
         this.acceleration = 0;
         clearInterval(fly);
       }
-      // console.log(this.isSplashed);
     }, 25);
   }
 

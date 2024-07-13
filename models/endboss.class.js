@@ -46,8 +46,10 @@ class Endboss extends MoveableObject {
     "./img/4_enemie_boss_chicken/5_dead/G26.png",
   ];
 
-  // YOU_WIN = "./img/9_intro_outro_screens/win/win_2.png";
-  YOU_WIN = "./img/9_intro_outro_screens/win/level_2.png";
+  YOU_WIN = "./img/9_intro_outro_screens/win/win_2.png";
+  level1 = "./img/9_intro_outro_screens/win/level_1.png";
+  level2 = "./img/9_intro_outro_screens/win/level_2.png";
+  level3 = "./img/9_intro_outro_screens/win/level_3.png";
 
   offset = {
     top: 65,
@@ -56,7 +58,7 @@ class Endboss extends MoveableObject {
     bottom: 40,
   };
 
-  constructor() {
+  constructor(speed, energy) {
     super().loadImage(this.IMAGES_WALKING[0]);
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_HURT);
@@ -64,19 +66,27 @@ class Endboss extends MoveableObject {
     this.loadImages(this.IMAGES_ATTACK);
     this.loadImages(this.IMAGES_DEAD);
     this.animate();
+    this.energy = energy;
+    this.speed = speed;
   }
 
   animate() {
     // Speed for walking Animation
     let follow = false;
+    let awake = false;
     let distance;
-    let endBoss = setInterval(() => {
-      follow = false;
+    let endBoss = setInterval(() => {      
+
       distance = parseInt(this.characterX) - parseInt(this.x);
       distance = Math.abs(distance);
+      // console.log("Distance: "+distance+" Character-X: "+this.characterX);
+      if (!awake && parseInt(this.characterX) > 1900) {
+        awake = true;
+      }
+
       if (this.isDead()) {
+        follow = false;
         if (soundsMuted) {
-          // this.chick_sound2.pause();
           endboss_die.muted = true;
         } else {
           endboss_die.muted = false;
@@ -84,57 +94,80 @@ class Endboss extends MoveableObject {
         }
         this.playAnimationOnce(this.IMAGES_DEAD);
         setTimeout(() => {
+    
           this.height = 650;
           this.width = 650;
           this.x = this.characterX -= 100 - 220;
           this.y = 20;
           this.otherDirection = false;
 
+          distance = parseInt(this.characterX) - parseInt(this.x);
+          distance = Math.abs(distance);
+
           if (soundsMuted) {
-            // this.chick_sound2.pause();
             mariachi.muted = true;
           } else {
             start_game_over.muted = true;
-            mariachi.muted = false;
             mariachi.play();
+            mariachi.muted = false;
+            if (!musicMuted) {
+              mariachi.muted = false;
+            }
           }
-         
-          clearAllIntervals();
-          this.loadImage(this.YOU_WIN);
-          // clearAllIntervals();
-          gameLevel = 2;
-          document.getElementById('startLevel').innerHTML = "Start Level "+gameLevel;
-          // setTimeout(() => {
-                
-          // startGame;
-          // }, 3000);
-          // gameLevel = "level2";
-          // startGame();
-        }, 1000);
 
-        // clearInterval(endBoss);
+          clearAllIntervals();
+          if (gameLevel<=4) {
+            gameLevel++;
+          }
+          
+          if (gameLevel==4) {
+            this.loadImage(this.YOU_WIN);
+            gameLevel=1;
+          }
+          if (gameLevel==1) {
+            this.loadImage(this.level1);
+          }
+          if (gameLevel==2) {
+            this.loadImage(this.level2);
+          }
+
+          if (gameLevel==3) {
+            this.loadImage(this.level3);
+          }
+      
+          
+          // gameLevel = 2;
+          
+          document.getElementById("startLevel").innerHTML = "Start Level " + gameLevel;
+        }, 1000);
       } else if (this.isHurt()) {
+        follow = false;
         if (soundsMuted) {
-          // this.chick_sound2.pause();
           endboss_hurt.muted = true;
         } else {
           endboss_hurt.muted = false;
           endboss_hurt.play();
         }
         this.playAnimation(this.IMAGES_HURT);
-      } else if (distance < 600 && distance > 400) {
-        this.playAnimation(this.IMAGES_ALERT);
-      } else if (distance < 400) {
-        this.playAnimation(this.IMAGES_ATTACK);
-      } else {
+      } else if (awake && distance <= 900 && distance > 500) {  
         follow = true;
         this.playAnimation(this.IMAGES_WALKING);
+      } else if (awake && distance <= 500 && distance > 200) {
+        follow = true;
+        this.playAnimation(this.IMAGES_ALERT);
+      } else if (awake && distance <= 200) {
+        follow = true;
+        this.playAnimation(this.IMAGES_ATTACK);
       }
+      // else {
+      //   follow = true;
+      //   this.playAnimation(this.IMAGES_WALKING);
+      // }
     }, 200);
 
     setInterval(() => {
       if (follow) {
-        this.followCharacter(3, this.characterX);
+        this.followCharacter(this.speed, this.characterX);
       }
     }, 1000 / 60);
   }

@@ -9,7 +9,6 @@ class AmmoBar extends DrawableObject {
     this.width = 50;
     this.height = 50;
   }
-
   setAmmo(ammo) {
     this.ammo = ammo;
   }
