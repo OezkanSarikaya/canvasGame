@@ -70,76 +70,60 @@ class Endboss extends MoveableObject {
     this.speed = speed;
   }
 
+  displayEndScreen(gameLevel) {
+    switch (gameLevel) {
+      case 1:
+        this.loadImage(this.level1);
+        break;
+      case 2:
+        this.loadImage(this.level2);
+        break;
+      case 3:
+        this.loadImage(this.level3);
+        break;
+      case 4:
+        this.loadImage(this.YOU_WIN);
+        win = true;
+        // gameLevel = 3;
+        break;
+    }
+  }
+
+  endLevel() {
+    setTimeout(() => {
+      this.height = 650;
+      this.width = 650;
+      this.x = this.characterX -= 100 - 220;
+      this.y = 20;
+      this.otherDirection = false;
+      start_game_over.pause();
+      soundsMuted || musicMuted ? mariachi.pause() : mariachi.play();
+      clearAllIntervals();
+      if (gameLevel <= 3) {
+        gameLevel++;
+      }
+      this.displayEndScreen(gameLevel);
+    }, 1000);
+  }
+
   animate() {
     // Speed for walking Animation
     let follow = false;
     let awake = false;
     let distance;
     let endBoss = setInterval(() => {
-      distance = parseInt(this.characterX) - parseInt(this.x);
-      distance = Math.abs(distance);
+      distance = Math.abs(parseInt(this.characterX) - parseInt(this.x));
       if (!awake && parseInt(this.characterX) > 1900) {
         awake = true;
       }
-
       if (this.isDead()) {
         follow = false;
-        if (soundsMuted) {
-          endboss_die.muted = true;
-        } else {
-          endboss_die.muted = false;
-          endboss_die.play();
-        }
+        soundsMuted ? (endboss_die.muted = true) : endboss_die.play();
         this.playAnimationOnce(this.IMAGES_DEAD);
-        setTimeout(() => {
-          this.height = 650;
-          this.width = 650;
-          this.x = this.characterX -= 100 - 220;
-          this.y = 20;
-          this.otherDirection = false;
-
-          distance = parseInt(this.characterX) - parseInt(this.x);
-          distance = Math.abs(distance);
-
-          if (soundsMuted) {
-            mariachi.muted = true;
-          } else {
-            start_game_over.muted = true;
-            mariachi.play();
-            mariachi.muted = false;
-            if (!musicMuted) {
-              mariachi.muted = false;
-            }
-          }
-
-          clearAllIntervals();
-          if (gameLevel <= 4) {
-            gameLevel++;
-          }
-
-          switch (gameLevel) {
-            case 1:
-              this.loadImage(this.level1);
-              break;
-            case 2:
-              this.loadImage(this.level2);
-              break;
-            case 3:
-              this.loadImage(this.level3);
-              break;
-            case 4:
-              this.loadImage(this.YOU_WIN);
-              break;
-          }
-        }, 1000);
+        this.endLevel();
       } else if (this.isHurt()) {
         follow = false;
-        if (soundsMuted) {
-          endboss_hurt.muted = true;
-        } else {
-          endboss_hurt.muted = false;
-          endboss_hurt.play();
-        }
+        soundsMuted ? (endboss_hurt.muted = true) : endboss_hurt.play();
         this.playAnimation(this.IMAGES_HURT);
       } else if (awake && distance <= 900 && distance > 500) {
         follow = true;
@@ -152,7 +136,6 @@ class Endboss extends MoveableObject {
         this.playAnimation(this.IMAGES_ATTACK);
       }
     }, 200);
-
     setInterval(() => {
       if (follow) {
         this.followCharacter(this.speed, this.characterX);

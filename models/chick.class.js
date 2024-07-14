@@ -5,7 +5,7 @@ class Chick extends MoveableObject {
   height = 42;
   width = 40;
   y = 640 - this.height;
-  
+
   IMAGES_WALKING = [
     "./img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
     "./img/3_enemies_chicken/chicken_small/1_walk/2_w.png",
@@ -18,10 +18,10 @@ class Chick extends MoveableObject {
     left: 3,
     right: 3,
     bottom: 3,
-  }; 
+  };
 
   /**
-   * Constructor for class chick 
+   * Constructor for class chick
    */
   constructor(speed) {
     super().loadImage("./img/3_enemies_chicken/chicken_small/1_walk/1_w.png");
@@ -38,34 +38,12 @@ class Chick extends MoveableObject {
         this.followCharacter(this.speed, this.characterX);
       }
     }, 1000 / 60);
-
     let timepassed = 0;
     setInterval(() => {
       if (this.energy > 0) {
-        this.playAnimation(this.IMAGES_WALKING);
-
-        if (soundsMuted) {
-          chick_sound.muted = true;
-        } else {
-          if (level) {
-            let pause = Math.floor(Math.random() * 5 + 1);
-            setTimeout(() => {
-              chick_sound.muted = false;
-              chick_sound.volume = 0.1;
-              chick_sound.play();
-            }, pause);
-          }
-        }
+        this.chickWalk(chick_sound);
       } else {
-        if (timepassed < 4000) {
-          this.playAnimation(this.IMAGES_DEAD);
-        } else {
-          let index = this.world.level.enemies.indexOf(this);
-          if (index > -1) {
-            this.world.level.enemies.splice(index, 1);
-          }
-        }
-        timepassed = new Date().getTime() - this.lastHit;
+        this.chickDeath(timepassed, this.lastHit);
       }
     }, 120);
   }

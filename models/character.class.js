@@ -81,8 +81,7 @@ class Character extends MoveableObject {
   GAME_OVER = "./img/9_intro_outro_screens/game_over/game over.png";
 
   constructor() {
-    super().loadImage("./img/2_character_pepe/2_walk/W-21.png");
-    // this.loadImage(this.GAME_OVER);
+    super().loadImage("./img/2_character_pepe/2_walk/W-21.png"); 
     this.loadImages(this.IMAGES_IDLE);
     this.loadImages(this.IMAGES_SLEEP);
     this.loadImages(this.IMAGES_WALKING);
@@ -93,44 +92,44 @@ class Character extends MoveableObject {
     this.animate();
   }
 
-  animate() {
-    // Speed for walking Animation
+  gameOver() {
+    clearAllIntervals();
+    setTimeout(() => {
+      this.height = 720;
+      this.width = 1080;
+      this.x -= 100;
+      this.y = 0;
+      this.otherDirection = false;
+      musicMuted || soundsMuted ? start_game_over.pause() : start_game_over.play();
+      this.loadImage(this.GAME_OVER);
+      gameLevel = 1;
+      // document.getElementById('startLevel').innerHTML = `Start Level ${gameLevel}`;
+    }, 1000);
+  }
+
+  sleepIdle(sleepTimer) {
+    let timepassed = 0;
+    this.playAnimation(this.IMAGES_IDLE);
+    if (sleepTimer === null) {
+      sleepTimer = new Date().getTime();
+    }
+    timepassed = new Date().getTime() - sleepTimer;
+    if (timepassed >= 8000) {
+      soundsMuted ? (snoring.muted = true) : snoring.play();
+      this.playAnimation(this.IMAGES_SLEEP);
+    }
+    return sleepTimer;
+  }
+
+  animateCharacter() {
     let sleepTimer = null;
     setInterval(() => {
       if (this.isDead()) {
-        if (soundsMuted) {
-          die.muted = true;
-        } else {
-          die.muted = false;
-          die.play();
-        }
+        soundsMuted ? (die.muted = true) : die.play();
         this.playAnimationOnce(this.IMAGES_DEAD);
-        clearAllIntervals();
-        setTimeout(() => {
-          this.height = 720;
-          this.width = 1080;
-          this.x -= 100;
-          this.y = 0;
-          this.otherDirection = false;
-
-          if (soundsMuted) {
-            start_game_over.muted = true;
-          } else {
-            start_game_over.muted = false;
-            start_game_over.play();
-          }
-
-          this.loadImage(this.GAME_OVER);
-          gameLevel = 1;
-          // document.getElementById('startLevel').innerHTML = `Start Level ${gameLevel}`;
-        }, 1000);
+        this.gameOver();
       } else if (this.isHurt()) {
-        if (soundsMuted) {
-          hurt.muted = true;
-        } else {
-          hurt.muted = false;
-          hurt.play();
-        }
+        soundsMuted ? (hurt.muted = true) : hurt.play();
         sleepTimer = null;
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.isAboveGround()) {
@@ -142,88 +141,73 @@ class Character extends MoveableObject {
       } else if (world.keyboard.D) {
         sleepTimer = null;
       } else {
-        this.playAnimation(this.IMAGES_IDLE);
-        if (sleepTimer == null) {
-          sleepTimer = new Date().getTime();
-        }
-        let timepassed = new Date().getTime() - sleepTimer;
-        if (timepassed >= 15000) {
-          if (soundsMuted) {
-            snoring.muted = true;
-          } else {
-            snoring.muted = false;
-            snoring.play();
-          }
-          this.playAnimation(this.IMAGES_SLEEP);
-        }
+        sleepTimer = this.sleepIdle(sleepTimer);
       }
     }, 100);
+  }
 
-    let speedLayer3 = 10;
-    let speedLayer2 = 5;
-    let speedLayerSun = 15;
+  parallaxLayers(direction) {
+    let speedLayer3 = 10,
+      speedLayer2 = 5,
+      speedLayerSun = 15;
+    this.world.level.backgroundObjects.forEach((obj) => {
+      switch (obj.layer) {
+        case 0:
+          direction == "right" ? (obj.x += speedLayerSun) : (obj.x -= speedLayerSun);
+          break;
+        case 2:
+          direction == "right" ? (obj.x += speedLayer2) : (obj.x -= speedLayer2);
+          break;
+        case 3:
+          direction == "right" ? (obj.x += speedLayer3) : (obj.x -= speedLayer3);
+          break;
+      }
+    });
+  }
 
-    // Speed for move character
+  moveCharacterRight() {
+    if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+      this.moveRight();
+      this.parallaxLayers("right");
+      this.otherDirection = false;
+      if (!this.isAboveGround()) {
+        walking_sound.muted = soundsMuted ? true : false;
+        walking_sound.play();
+      }
+    }
+  }
+
+  moveCharacterLeft() {
+    if (this.world.keyboard.LEFT && this.x > -610) {
+      this.moveLeft();
+      this.parallaxLayers("left");
+      this.otherDirection = true;
+      if (!this.isAboveGround()) {
+        walking_sound.play();
+      }
+    }
+  }
+
+  jumpCharacter() {
+    if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+      this.jump();
+      soundsMuted ? jump_sound.pause() : jump_sound.play();
+    }
+  }
+
+  moveCharacter() {
     setInterval(() => {
-      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-        this.moveRight();
-        this.world.level.backgroundObjects.forEach((obj) => {
-          switch (obj.layer) {
-            case 0:
-              obj.x += speedLayerSun;
-              break;
-            case 2:
-              obj.x += speedLayer2;
-              break;
-            case 3:
-              obj.x += speedLayer3;
-              break;
-          }
-        });
-
-        this.otherDirection = false;
-        if (!this.isAboveGround()) {
-          if (soundsMuted) {
-            walking_sound.muted = true;
-          } else {
-            walking_sound.muted = false;
-            walking_sound.play();
-          }
-        }
-      }
-
-      if (this.world.keyboard.LEFT && this.x > -610) {
-        this.moveLeft();
-
-        this.world.level.backgroundObjects.forEach((obj) => {
-          switch (obj.layer) {
-            case 0:
-              obj.x -= speedLayerSun;
-              break;
-            case 2:
-              obj.x -= speedLayer2;
-              break;
-            case 3:
-              obj.x -= speedLayer3;
-              break;
-          }
-        });
-
-        this.otherDirection = true;
-        if (!this.isAboveGround()) {
-          walking_sound.play();
-        }
-      }
-      if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-        this.jump();
-        if (soundsMuted) {
-          jump_sound.muted = true;
-        } else {
-          jump_sound.muted = false;
-          jump_sound.play();
-        }
-      }
+      this.moveCharacterRight();
+      this.moveCharacterLeft();
+      this.jumpCharacter();
       world.camera_x = -this.x + 100;
     }, 1000 / 60);
+  }
+
+  animate() {
+    // Speed for walking Animation
+    this.animateCharacter();
+    // Speed for move character
+    this.moveCharacter();
   }
 }

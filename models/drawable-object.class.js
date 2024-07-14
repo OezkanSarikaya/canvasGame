@@ -22,6 +22,27 @@ class DrawableObject {
     });
   }
 
+  outerFrame(x, y, width, height, ctx) {
+    ctx.beginPath();
+    ctx.lineWidth = "1";
+    ctx.strokeStyle = "blue";
+    ctx.rect(x, y, width, height);
+    ctx.stroke();
+  }
+
+  innerFrame(x, y, width, height, ctx,offsetTop,offsetRight,offsetBottom,offsetLeft) {
+    ctx.beginPath();
+    ctx.lineWidth = "1";
+    ctx.strokeStyle = "red";
+    ctx.rect(
+      x + offsetLeft,
+      y + offsetTop,
+      width - offsetRight - offsetLeft,
+      height - offsetBottom - offsetTop
+    );
+    ctx.stroke();
+  }
+
   drawFrame(ctx) {
     if (
       this instanceof Character ||
@@ -32,24 +53,8 @@ class DrawableObject {
       this instanceof Bottles ||
       this instanceof Coins
     ) {
-      // Outer Frame
-      ctx.beginPath();
-      ctx.lineWidth = "1";
-      ctx.strokeStyle = "blue";
-      ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.stroke();
-
-      // Inner Frame
-      ctx.beginPath();
-      ctx.lineWidth = "1";
-      ctx.strokeStyle = "red";
-      ctx.rect(
-        this.x + this.offset.left,
-        this.y + this.offset.top,
-        this.width - this.offset.right - this.offset.left,
-        this.height - this.offset.bottom - this.offset.top
-      );
-      ctx.stroke();
+      this.outerFrame(this.x, this.y, this.width, this.height, ctx);
+      this.innerFrame(this.x, this.y, this.width, this.height, ctx,this.offset.top,this.offset.right,this.offset.bottom,this.offset.left);
     }
   }
 }

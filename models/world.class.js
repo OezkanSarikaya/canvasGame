@@ -24,12 +24,10 @@ class World {
 
   setWorld() {
     this.character.world = this;
-
     // Each enemy can read x position of character (needed for follow function)
     for (let i = 0; i < this.level.enemies.length; i++) {
       this.level.enemies[i].characterX = this.character.x;
     }
-
     for (let i = 0; i < this.level.enemies.length; i++) {
       this.level.enemies[i].world = this;
     }
@@ -48,7 +46,6 @@ class World {
       for (let i = 0; i < this.level.enemies.length; i++) {
         this.level.enemies[i].characterX = this.character.x;
       }
-
       this.checkThrowObjects();
       this.checkCollisions();
       this.checkHit();
@@ -71,6 +68,10 @@ class World {
     let speedY = 50;
     let acceleration = 10;
     let x = xPosition;
+    this.setCoinsArc(amount, x, y, speedY, acceleration);
+  }
+
+  setCoinsArc(amount, x, y, speedY, acceleration) {
     for (let i = 0; i < amount; i++) {
       x += 40;
       y -= speedY;
@@ -79,16 +80,11 @@ class World {
       this.coins.push(coin);
     }
   }
-  throw_sound = new Audio("./audio/throw.mp3");
+
   checkThrowObjects() {
     if (this.keyboard.D && this.character.ammo > 0) {
       let bottle = new ThrowableObject(this.character.x + 30, this.character.y + 120, this.character.otherDirection);
-      if (soundsMuted) {
-        throw_sound.muted = true;
-      } else {
-        throw_sound.muted = false;
-        throw_sound.play();
-      }
+      soundsMuted ? (throw_sound.muted = true) : throw_sound.play();
       this.throwableObjects.push(bottle);
       this.ammoBar.setAmmo(this.character.ammo--);
     }
@@ -98,12 +94,7 @@ class World {
     this.level.enemies.forEach((enemy) => {
       this.throwableObjects.forEach((bottle) => {
         if (bottle.isColliding(enemy)) {
-          if (soundsMuted) {
-            glass.muted = true;
-          } else {
-            glass.muted = false;
-            glass.play();
-          }
+          soundsMuted ? (glass.muted = true) : glass.play();
           enemy.hit();
           bottle.isSplashed = true;
         }
@@ -116,13 +107,8 @@ class World {
       if (this.character.isColliding(enemy)) {
         if (this.character.isAboveGround() && this.character.speedY < 0) {
           enemy.hit();
-
-          if (soundsMuted) {
-            chicken_die.muted = true;
-          } else {
-            chicken_die.muted = false;
-            chicken_die.play();
-          }
+          chicken_die.muted = soundsMuted ? true : false;
+          chicken_die.play();
         } else if (enemy.energy > 0) {
           this.character.hit();
         }
@@ -134,12 +120,7 @@ class World {
     for (let i = 0; i < this.bottles.length; i++) {
       const enemy = this.bottles[i];
       if (this.character.isColliding(enemy)) {
-        if (soundsMuted) {
-          pickBottle.muted = true;
-        } else {
-          pickBottle.muted = false;
-          pickBottle.play();
-        }
+        soundsMuted ? (pickBottle.pause()) : pickBottle.play();
         this.bottles.splice(i, 1);
         this.ammoBar.setAmmo(this.character.ammo++);
       }
@@ -150,24 +131,21 @@ class World {
     for (let i = 0; i < this.coins.length; i++) {
       const enemy = this.coins[i];
       if (this.character.isColliding(enemy)) {
-        if (soundsMuted) {
-          coinSound.muted = true;
-        } else {
-          coinSound.muted = false;
-          coinSound.play();
-        }
+        soundsMuted ? coinSound.pause() : coinSound.play();
         this.coins.splice(i, 1);
         this.coinBar.setCoins(this.character.coins++);
+        if (this.character.coins == 10) {
+          this.character.coins -= 10;
+          this.character.ammo += 10;
+          soundsMuted ? (bottlesBonus.muted = true) : (bottlesBonus.muted = false) ;
+          bottlesBonus.play();
+        }
       }
     }
   }
-
-  draw() {
-    this.ctx.reset();
-    this.ctx.translate(this.camera_x, 0);
-
-    // sunrise animation
-    if (gameLevel == 1 || gameLevel == 2) {
+  
+  sunrise() {
+    if (gameLevel == 1 || gameLevel == 3) {
       let saturate = -this.level.backgroundObjects[1].y + 400;
       if (this.level.backgroundObjects[1].y > 50) {
         this.level.backgroundObjects[1].x += 0.5;
@@ -177,28 +155,22 @@ class World {
         }
       }
     }
+  }
 
-    if (gameLevel == 3) {
+  sunset() {
+    if (gameLevel == 2) {
       let saturate = -this.level.backgroundObjects[1].y + 400;
       if (this.level.backgroundObjects[1].y >= 80 && this.level.backgroundObjects[1].y < 320) {
         this.level.backgroundObjects[1].x += 0.5;
         this.level.backgroundObjects[1].y += 0.5;
         if (saturate <= 100) {
           this.canvas.style.filter = "saturate(" + saturate + "%)";
-          // this.canvas.style.filter = "brightness(" + saturate + "%)";
         }
       }
     }
+  }
 
-    this.addObjectsToMap(this.level.backgroundObjects);
-    this.addObjectsToMap(this.level.objects);
-    this.addObjectsToMap(this.level.clouds);
-    this.addObjectsToMap(this.coins);
-    this.addObjectsToMap(this.bottles);
-    this.addObjectsToMap(this.level.enemies);
-    this.addObjectsToMap(this.throwableObjects);
-    this.ctx.translate(-this.camera_x, 0);
-    // Begin Space for fixed objects
+  drawFixedObjects() {
     this.addToMap(this.statusBar);
     this.addToMap(this.ammoBar);
     this.addToMap(this.coinBar);
@@ -208,17 +180,34 @@ class World {
     this.ctx.fillText(this.character.ammo, 60, 60);
     this.ctx.fillText(this.character.energy, 155, 60);
     this.ctx.fillText(this.character.coins, 255, 60);
+    if (gameLevel==4) {gameLevel--;}
     this.ctx.fillText("Level: " + gameLevel, 800, 60);
-
     if (this.level.enemies[0]) {
       this.ctx.fillText(this.level.enemies[0].energy, 1000, 60); // Endboss
     }
+  }
 
-    // End Space for fixed objects
+  drawObjectsToMap() {
+    this.addObjectsToMap(this.level.backgroundObjects);
+    this.addObjectsToMap(this.level.objects);
+    this.addObjectsToMap(this.level.clouds);
+    this.addObjectsToMap(this.coins);
+    this.addObjectsToMap(this.bottles);
+    this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.throwableObjects);
+  }
+
+  draw() {
+    this.ctx.reset();
+    this.ctx.translate(this.camera_x, 0);
+    this.sunrise(); // sunrise (or moonrise) animation
+    this.sunset(); // sunset animation
+    this.drawObjectsToMap();
+    this.ctx.translate(-this.camera_x, 0);
+    this.drawFixedObjects();
     this.ctx.translate(this.camera_x, 0);
     this.addToMap(this.character);
     this.ctx.translate(-this.camera_x, 0);
-
     requestAnimationFrame(() => {
       this.draw();
     });
@@ -235,7 +224,7 @@ class World {
       this.flipImage(mo);
     }
     mo.draw(this.ctx);
-    // mo.drawFrame(this.ctx); // Show Frame around objects
+    // mo.drawFrame(this.ctx); // Uncomment to show frames around objects
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }

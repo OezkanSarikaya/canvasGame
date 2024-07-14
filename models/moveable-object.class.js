@@ -15,7 +15,7 @@ class MoveableObject extends DrawableObject {
 
   applyGravity() {
     setInterval(() => {
-      if (this.isAboveGround() || this.speedY > 0) {  
+      if (this.isAboveGround() || this.speedY > 0) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
       }
@@ -37,7 +37,6 @@ class MoveableObject extends DrawableObject {
       this.x + this.offset.left < obj.x + obj.width - obj.offset.right &&
       this.y + this.offset.top < obj.y + obj.height - obj.offset.bottom
     );
- 
   }
 
   hit() {
@@ -54,13 +53,9 @@ class MoveableObject extends DrawableObject {
     this.applyGravity();
     this.ammo--;
     const fly = setInterval(() => {
-      if (otherDirection && !this.isSplashed) {
-        this.x -= 10;
-      }
-      if (!otherDirection && !this.isSplashed) {
-        this.x += 10;
-      }
-      if (this.isSplashed) {
+      if (!this.isSplashed) {
+        otherDirection ? (this.x -= 10) : (this.x += 10);
+      } else {
         this.x = this.x;
         this.y = this.y;
         this.speedY = 0;
@@ -71,7 +66,7 @@ class MoveableObject extends DrawableObject {
   }
 
   isDead() {
-    return this.energy == 0;    
+    return this.energy == 0;
   }
 
   isHurt() {
@@ -91,6 +86,28 @@ class MoveableObject extends DrawableObject {
     for (let i = 0; i < images.length; i++) {
       const path = images[i];
       this.img = this.imageCache[path];
+    }
+  }
+
+  chickWalk(sound) {
+    this.playAnimation(this.IMAGES_WALKING);
+    if (soundsMuted) {
+      sound.muted = true;
+    } else {
+      sound.muted = false;
+      sound.play();
+    }
+  }
+
+  chickDeath(timepassed, lastHit) {
+    timepassed = new Date().getTime() - lastHit;
+    if (timepassed < 4000) {
+      this.playAnimation(this.IMAGES_DEAD);
+    } else {
+      let index = this.world.level.enemies.indexOf(this);
+      if (index > -1) {
+        this.world.level.enemies.splice(index, 1);
+      }
     }
   }
 

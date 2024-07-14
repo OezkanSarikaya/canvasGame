@@ -42,22 +42,26 @@ function initLevel(gameLevel) {
     );
   }
 
-  if (gameLevel == 2) {
+  if (gameLevel == 3) {
     level = new Level(
       [],
       [
-        new Endboss(3, 200),
+        new Endboss(5, 400),
         new Chicken(0.8),
         new Chick(1.0),
         new Chick(1.0),
+        new Chicken(1.0),
+        new Chicken(0.8),
+        new Chick(1.0),
+        new Chicken(0.8),
+        new Chicken(1.2),
+        new Chick(1.0),
+        new Chick(1.0),
+        new Chick(1.0),
         new Chicken(0.8),
         new Chicken(0.8),
         new Chick(1.0),
-        new Chicken(0.8),
         new Chick(1.0),
-        new Chick(1.0),
-        new Chick(1.0),
-        new Chicken(0.8),
         new Chicken(0.8),
       ],
       [new Cloud(), new Cloud(), new Cloud(), new Cloud(), new Cloud(), new Cloud(), new Cloud(), new Cloud()],
@@ -88,19 +92,22 @@ function initLevel(gameLevel) {
     );
   }
 
-  if (gameLevel == 3) {
+  if (gameLevel == 2) {
     level = new Level(
       [],
       [
-        new Endboss(5, 300),
-        new Chicken(0.4),
-        new Chicken(0.4),
-        new Chicken(0.4),
-        new Chick(0.6),
-        new Chicken(0.4),
-        new Chick(0.6),
-        new Chick(0.6),
-        new Chick(0.6),
+        new Endboss(4, 300),
+        new Chicken(0.6),
+        new Chicken(0.8),
+        new Chicken(0.6),
+        new Chick(0.8),
+        new Chicken(0.6),
+        new Chick(0.8),
+        new Chick(0.8),
+        new Chick(0.8),
+        new Chicken(0.6),
+        new Chick(0.8),
+        new Chicken(0.8),
       ],
       [new Cloud(), new Birds(), new Cloud(), new Cloud(), new Birds(), new Cloud(), new Cloud(), new Cloud()],
 
