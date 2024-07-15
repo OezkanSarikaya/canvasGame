@@ -178,6 +178,8 @@ h2 {
   margin-top: 16px;
   max-width: 1080px;
   width: 100%;
+  padding: 0 24px;
+  box-sizing: border-box;
 }
 
 .bottomControls a {
@@ -236,9 +238,40 @@ canvas {
   background-size: 100% 100%;
 }
 
-.portrait,
+.portrait {
+  display: none;
+}
+
 #hud {
   display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.panel {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+
+.topPanel {
+  display: flex;
+  justify-content: center;
+}
+.panel-wrapper {
+  padding: 16px;
+  display: flex;
+  gap: 16px;
 }
 
 /*///////////////////////////////////////
@@ -256,35 +289,8 @@ canvas {
 }
 
 @media only screen and (max-height: 720px) {
-  #hud {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    height: 100vh;
-    width: 100vw;
-  }
-  .panel {
-    width: 100vw;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 16px;
-  }
 
-  .topPanel {
-    display: flex;
-    justify-content: center;
-  }
-  .panel-wrapper {
-    padding: 16px;
-    display: flex;
-    gap: 16px;
-  }
+
   h1 {
     display: none;
   }
@@ -298,11 +304,18 @@ canvas {
   }
 }
 
+.canvasFullscreen {
+  width: 100vw;
+  border-radius: unset;
+}
+
 @media (orientation: portrait) {
-  canvas,
-  #hud {
+  canvas
+  {
     display: none;
   }
+  #hud {
+    display: none;}
   .portrait {
     display: flex;
     flex-direction: column;

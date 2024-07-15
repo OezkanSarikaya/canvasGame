@@ -29,7 +29,7 @@ function muteMusic() {
   if (musicMuted) {
     musicMuted = false;
     if (!soundsMuted) {
-    start_game_over.play();
+      start_game_over.play();
     }
     document.getElementById("musicNotMuted").style.display = "inline";
     document.getElementById("musicMuted").style.display = "none";
@@ -38,7 +38,7 @@ function muteMusic() {
   } else {
     musicMuted = true;
     start_game_over.pause();
-    mariachi.pause(); 
+    mariachi.pause();
     document.getElementById("musicNotMuted").style.display = "none";
     document.getElementById("musicMuted").style.display = "inline";
     document.getElementById("mobileMusicNotMuted").style.display = "none";
@@ -100,8 +100,58 @@ function startGame() {
   world = new World(canvas, keyboard);
 }
 
+function enterFullscreen() {
+  let element = document.getElementById("fullscreen");
+  document.getElementById("bottomControls").style.maxWidth = "unset";
+  document.getElementById("startFullscreen").classList.add("d-none");
+  document.getElementById("exitFullscreen").classList.remove("d-none");
+  document.getElementById("canvas").classList.add("canvasFullscreen");
+  if (element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if (element.msRequestFullscreen) {
+    // for IE11 (remove June 15, 2022)
+    element.msRequestFullscreen();
+  } else if (element.webkitRequestFullscreen) {
+    // iOS Safari
+    element.webkitRequestFullscreen();
+  }
+}
+
 function fullscreen() {
-  canvas.requestFullscreen();
+  // let element = document.getElementById('fullscreen');
+  if (document.fullscreenElement === null) {
+    enterFullscreen();
+    document.getElementById("bottomControls");
+    document.getElementById("hud").style.display ="flex";
+  
+  } else {
+    // document.exitFullscreen();
+    closeFullscreen();
+  }
+}
+
+function closeFullscreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  }
+
+  // else if (document.webkitExitFullscreen) {
+  //   /* Safari */
+  //   document.webkitExitFullscreen();
+  // } else if (document.msExitFullscreen) {
+  //   /* IE11 */
+  //   document.msExitFullscreen();
+  // }
+  // let element = document.getElementById('fullscreen');
+  document.getElementById("canvas").classList.remove("canvasFullscreen");
+  document.getElementById("startFullscreen").classList.remove("d-none");
+  document.getElementById("exitFullscreen").classList.add("d-none");
+  // if(element) {
+  //   document.exitFullscreen();
+  //   // await document.exitFullscreen();
+  // } else if(document.webkitExitFullscreen) {
+  //   document.webkitExitFullscreen();
+  // }
 }
 
 document.getElementById("btnLeft").addEventListener("touchstart", (e) => {
@@ -144,6 +194,16 @@ document.getElementById("btnThrow").addEventListener("touchend", (e) => {
   keyboard.D = false;
 });
 
+// document.addEventListener("fullscreenchange", function () {
+//   // output.innerHTML = "fullscreenchange event fired!";
+//   let element = document.fullscreenElement;
+//   if (element == null) {
+//     // closeFullscreen();
+//     // document.exitFullscreen();
+//     // fullscreen();
+//   }
+// });
+
 function keyboardListener(listener) {
   let keyPressed = listener == "keydown" ? true : false;
   window.addEventListener(listener, (e) => {
@@ -158,6 +218,23 @@ function keyboardListener(listener) {
     }
     if (e.keyCode == 68) {
       keyboard.D = keyPressed;
+    }
+    if (e.keyCode == 27) {
+      // fullscreen();
+      // closeFullscreen();
+      // exitFullscreen();
+      // keyboard.D = keyPressed;
+      // fullscreen();
+      // if (document.fullscreenElement != null) {
+      //   document.getElementById('canvas').classList.remove('canvasFullscreen');
+      //   document.getElementById('startFullscreen').classList.remove('d-none');
+      //   document.getElementById('exitFullscreen').classList.add('d-none');
+      //   if(document.exitFullscreen) {
+      //     document.exitFullscreen();
+      //   } else if(document.webkitExitFullscreen) {
+      //     document.webkitExitFullscreen();
+      //   }
+      // }
     }
   });
 }

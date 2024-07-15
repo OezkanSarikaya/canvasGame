@@ -1,6 +1,3 @@
-/**
- * This class is for the enemy chick (small chicken)
- */
 class Chick extends MoveableObject {
   height = 42;
   width = 40;
@@ -20,9 +17,6 @@ class Chick extends MoveableObject {
     bottom: 3,
   };
 
-  /**
-   * Constructor for class chick
-   */
   constructor(speed) {
     super().loadImage("./img/3_enemies_chicken/chicken_small/1_walk/1_w.png");
     this.loadImages(this.IMAGES_WALKING);

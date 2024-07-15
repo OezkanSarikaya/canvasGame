@@ -1,4 +1,30 @@
+/**
+ * Represents the main character in the game, extending from MoveableObject.
+ * @extends MoveableObject
+ */
 class Character extends MoveableObject {
+  /**
+   * @property {number} height - The height of the character.
+   * @property {number} width - The width of the character.
+   * @property {number} x - The x-coordinate of the character.
+   * @property {number} y - The y-coordinate of the character.
+   * @property {number} ammo - The amount of ammo the character has.
+   * @property {number} coins - The amount of coins the character has.
+   * @property {number} energy - The energy level of the character.
+   * @property {number} speed - The speed of the character.
+   * @property {Object} offset - The collision offset of the character.
+   * @property {number} offset.top - The top offset.
+   * @property {number} offset.left - The left offset.
+   * @property {number} offset.right - The right offset.
+   * @property {number} offset.bottom - The bottom offset.
+   * @property {Array<string>} IMAGES_IDLE - Array of image paths for idle animation.
+   * @property {Array<string>} IMAGES_SLEEP - Array of image paths for sleep animation.
+   * @property {Array<string>} IMAGES_WALKING - Array of image paths for walking animation.
+   * @property {Array<string>} IMAGES_JUMPING - Array of image paths for jumping animation.
+   * @property {Array<string>} IMAGES_DEAD - Array of image paths for dead animation.
+   * @property {Array<string>} IMAGES_HURT - Array of image paths for hurt animation.
+   * @property {string} GAME_OVER - Image path for game over screen.
+   */
   height = 300;
   width = 150;
   x = -900;
@@ -80,6 +106,9 @@ class Character extends MoveableObject {
 
   GAME_OVER = "./img/9_intro_outro_screens/game_over/game over.png";
 
+  /**
+   * Creates an instance of Character and initializes its properties.
+   */
   constructor() {
     super().loadImage("./img/2_character_pepe/2_walk/W-21.png"); 
     this.loadImages(this.IMAGES_IDLE);
@@ -92,6 +121,9 @@ class Character extends MoveableObject {
     this.animate();
   }
 
+  /**
+   * Handles the game over state.
+   */
   gameOver() {
     clearAllIntervals();
     setTimeout(() => {
@@ -103,10 +135,14 @@ class Character extends MoveableObject {
       musicMuted || soundsMuted ? start_game_over.pause() : start_game_over.play();
       this.loadImage(this.GAME_OVER);
       gameLevel = 1;
-      // document.getElementById('startLevel').innerHTML = `Start Level ${gameLevel}`;
     }, 1000);
   }
 
+  /**
+   * Handles the sleep idle animation.
+   * @param {number} sleepTimer - The timer for sleep animation.
+   * @returns {number} Updated sleep timer.
+   */
   sleepIdle(sleepTimer) {
     let timepassed = 0;
     this.playAnimation(this.IMAGES_IDLE);
@@ -121,6 +157,9 @@ class Character extends MoveableObject {
     return sleepTimer;
   }
 
+  /**
+   * Animates the character based on its state.
+   */
   animateCharacter() {
     let sleepTimer = null;
     setInterval(() => {
@@ -146,6 +185,10 @@ class Character extends MoveableObject {
     }, 100);
   }
 
+  /**
+   * Moves the background layers to create a parallax effect.
+   * @param {string} direction - The direction to move the layers.
+   */
   parallaxLayers(direction) {
     let speedLayer3 = 10,
       speedLayer2 = 5,
@@ -165,6 +208,9 @@ class Character extends MoveableObject {
     });
   }
 
+  /**
+   * Moves the character to the right.
+   */
   moveCharacterRight() {
     if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
       this.moveRight();
@@ -177,6 +223,9 @@ class Character extends MoveableObject {
     }
   }
 
+  /**
+   * Moves the character to the left.
+   */
   moveCharacterLeft() {
     if (this.world.keyboard.LEFT && this.x > -610) {
       this.moveLeft();
@@ -188,6 +237,9 @@ class Character extends MoveableObject {
     }
   }
 
+  /**
+   * Makes the character jump.
+   */
   jumpCharacter() {
     if (this.world.keyboard.SPACE && !this.isAboveGround()) {
       this.jump();
@@ -195,6 +247,9 @@ class Character extends MoveableObject {
     }
   }
 
+  /**
+   * Moves the character based on keyboard input.
+   */
   moveCharacter() {
     setInterval(() => {
       this.moveCharacterRight();
@@ -204,6 +259,9 @@ class Character extends MoveableObject {
     }, 1000 / 60);
   }
 
+  /**
+   * Starts the animation and movement of the character.
+   */
   animate() {
     // Speed for walking Animation
     this.animateCharacter();

@@ -151,169 +151,214 @@
       </table>
     </div>
     <h1>El Pollo Loco</h1>
-    <canvas id="canvas" width="1080" height="720"> </canvas>
-    <div id="hud">
-      <div class="topPanel">
-        <div class="panel-wrapper">
-          <button onclick="level1Screen();blur();">
-            <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000">
-              <path
-                d="M382-306.67 653.33-480 382-653.33v346.66ZM480-80q-82.33 0-155.33-31.5-73-31.5-127.34-85.83Q143-251.67 111.5-324.67T80-480q0-83 31.5-156t85.83-127q54.34-54 127.34-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 82.33-31.5 155.33-31.5 73-85.5 127.34Q709-143 636-111.5T480-80Z" />
-            </svg>
-          </button>
-          <button id="muteSound" onclick="muteSounds()">
-            <svg
-              id="mobileMuted"
-              xmlns="http://www.w3.org/2000/svg"
-              height="40px"
-              viewBox="0 -960 960 960"
-              width="40px"
-              fill="#000000">
-              <path
-                d="M806-56 677.67-184.33q-27 18.66-58 32.16-31 13.5-64.34 21.17v-68.67q20-6.33 38.84-13.66 18.83-7.34 35.5-19l-154.34-155V-160l-200-200h-160v-240H262L51.33-810.67 98.67-858l754.66 754L806-56Zm-26.67-232-48-48q19-33 28.17-69.67 9.17-36.66 9.17-75.33 0-100-58.34-179-58.33-79-155-102.33V-831q124 28 202 125.5t78 224.5q0 51.67-14.16 100.67-14.17 49-41.84 92.33Zm-134-134-90-90v-130q47 22 73.5 66t26.5 96q0 15-2.5 29.5t-7.5 28.5Zm-170-170-104-104 104-104v208Z" />
-            </svg>
-            <svg
-              style="display: none"
-              id="mobileNotMuted"
-              class="svgIcons"
-              xmlns="http://www.w3.org/2000/svg"
-              height="40px"
-              viewBox="0 -960 960 960"
-              width="40px"
-              fill="#000000">
-              <path
-                d="M560-131v-68.67q94.67-27.33 154-105 59.33-77.66 59.33-176.33 0-98.67-59-176.67-59-78-154.33-104.66V-831q124 28 202 125.5T840-481q0 127-78 224.5T560-131ZM120-360v-240h160l200-200v640L280-360H120Zm426.67 45.33v-332Q599-628 629.5-582T660-480q0 55-30.83 100.83-30.84 45.84-82.5 64.5Z" />
-            </svg>
-          </button>
-          <button>
-            <svg
-              id="mobileMusicNotMuted"
-              class="svgIcons"
-              onclick="muteMusic()"
-              xmlns="http://www.w3.org/2000/svg"
-              height="40px"
-              viewBox="0 -960 960 960"
-              width="40px"
-              fill="#000000">
-              <path
-                d="M395.33-120q-64 0-108.66-44.67Q242-209.33 242-273.33T286.67-382q44.66-44.67 108.66-44.67 26.34 0 47.84 7.17 21.5 7.17 38.83 20.17V-840h236v143.33H548.67v423.34q0 64-44.67 108.66Q459.33-120 395.33-120Z" />
-            </svg>
-            <svg
-              style="display: none"
-              id="mobileMusicMuted"
-              class="svgIcons"
-              onclick="muteMusic()"
-              xmlns="http://www.w3.org/2000/svg"
-              height="40px"
-              viewBox="0 -960 960 960"
-              width="40px"
-              fill="#000000">
-              <path
-                d="M801.33-56 56.67-800.67 104-848l744.67 744.67L801.33-56ZM550.67-496 484-562.67V-840h236v143.33H550.67V-496ZM397.33-120q-64 0-108.66-44.67Q244-209.33 244-273.33T288.67-382q44.66-44.67 108.66-44.67 26.34 0 47.84 7.17 21.5 7.17 38.83 20.17V-468l66.67 66.67v128q0 64-44.67 108.66Q461.33-120 397.33-120Z" />
-            </svg>
-          </button>
+    <div id="fullscreen">
+      <canvas id="canvas" width="1080" height="720"> </canvas>
+
+      <div id="hud">
+        <div class="topPanel">
+          <div class="panel-wrapper">
+            <button onclick="level1Screen();blur();">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="40px"
+                viewBox="0 -960 960 960"
+                width="40px"
+                fill="#000000">
+                <path
+                  d="M382-306.67 653.33-480 382-653.33v346.66ZM480-80q-82.33 0-155.33-31.5-73-31.5-127.34-85.83Q143-251.67 111.5-324.67T80-480q0-83 31.5-156t85.83-127q54.34-54 127.34-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 82.33-31.5 155.33-31.5 73-85.5 127.34Q709-143 636-111.5T480-80Z" />
+              </svg>
+            </button>
+            <button id="muteSound" onclick="muteSounds()">
+              <svg
+                id="mobileMuted"
+                xmlns="http://www.w3.org/2000/svg"
+                height="40px"
+                viewBox="0 -960 960 960"
+                width="40px"
+                fill="#000000">
+                <path
+                  d="M806-56 677.67-184.33q-27 18.66-58 32.16-31 13.5-64.34 21.17v-68.67q20-6.33 38.84-13.66 18.83-7.34 35.5-19l-154.34-155V-160l-200-200h-160v-240H262L51.33-810.67 98.67-858l754.66 754L806-56Zm-26.67-232-48-48q19-33 28.17-69.67 9.17-36.66 9.17-75.33 0-100-58.34-179-58.33-79-155-102.33V-831q124 28 202 125.5t78 224.5q0 51.67-14.16 100.67-14.17 49-41.84 92.33Zm-134-134-90-90v-130q47 22 73.5 66t26.5 96q0 15-2.5 29.5t-7.5 28.5Zm-170-170-104-104 104-104v208Z" />
+              </svg>
+              <svg
+                style="display: none"
+                id="mobileNotMuted"
+                class="svgIcons"
+                xmlns="http://www.w3.org/2000/svg"
+                height="40px"
+                viewBox="0 -960 960 960"
+                width="40px"
+                fill="#000000">
+                <path
+                  d="M560-131v-68.67q94.67-27.33 154-105 59.33-77.66 59.33-176.33 0-98.67-59-176.67-59-78-154.33-104.66V-831q124 28 202 125.5T840-481q0 127-78 224.5T560-131ZM120-360v-240h160l200-200v640L280-360H120Zm426.67 45.33v-332Q599-628 629.5-582T660-480q0 55-30.83 100.83-30.84 45.84-82.5 64.5Z" />
+              </svg>
+            </button>
+            <button>
+              <svg
+                id="mobileMusicNotMuted"
+                class="svgIcons"
+                onclick="muteMusic()"
+                xmlns="http://www.w3.org/2000/svg"
+                height="40px"
+                viewBox="0 -960 960 960"
+                width="40px"
+                fill="#000000">
+                <path
+                  d="M395.33-120q-64 0-108.66-44.67Q242-209.33 242-273.33T286.67-382q44.66-44.67 108.66-44.67 26.34 0 47.84 7.17 21.5 7.17 38.83 20.17V-840h236v143.33H548.67v423.34q0 64-44.67 108.66Q459.33-120 395.33-120Z" />
+              </svg>
+              <svg
+                style="display: none"
+                id="mobileMusicMuted"
+                class="svgIcons"
+                onclick="muteMusic()"
+                xmlns="http://www.w3.org/2000/svg"
+                height="40px"
+                viewBox="0 -960 960 960"
+                width="40px"
+                fill="#000000">
+                <path
+                  d="M801.33-56 56.67-800.67 104-848l744.67 744.67L801.33-56ZM550.67-496 484-562.67V-840h236v143.33H550.67V-496ZM397.33-120q-64 0-108.66-44.67Q244-209.33 244-273.33T288.67-382q44.66-44.67 108.66-44.67 26.34 0 47.84 7.17 21.5 7.17 38.83 20.17V-468l66.67 66.67v128q0 64-44.67 108.66Q461.33-120 397.33-120Z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-wrapper">
+            <button id="btnLeft">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="40px"
+                viewBox="0 -960 960 960"
+                width="40px"
+                fill="#000000">
+                <path d="M560.67-240 320-480.67l240.67-240.66L608-674 414.67-480.67 608-287.33 560.67-240Z" />
+              </svg>
+            </button>
+            <button id="btnRight">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="40px"
+                viewBox="0 -960 960 960"
+                width="40px"
+                fill="#000000">
+                <path d="M521.33-480.67 328-674l47.33-47.33L616-480.67 375.33-240 328-287.33l193.33-193.34Z" />
+              </svg>
+            </button>
+          </div>
+          <div class="panel-wrapper">
+            <button id="btnJump">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="40px"
+                viewBox="0 -960 960 960"
+                width="40px"
+                fill="#000000">
+                <path d="M480-545.33 287.33-352.67 240-400l240-240 240 240-47.33 47.33L480-545.33Z" />
+              </svg>
+            </button>
+            <button id="btnThrow">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="40px"
+                viewBox="0 -960 960 960"
+                width="40px"
+                fill="#000000">
+                <path
+                  d="M598.67-80q-124.34-50-198.84-159.33-74.5-109.34-74.5-243.34 0-96.33 40-182.5 40-86.16 113.34-148.16H321.33V-880h277.34v277.33H532v-168.66q-66.33 53-103.17 128.16Q392-568 392-483.33q0 106 55.67 194.83 55.66 88.83 151 135.5v73Z" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
-      <div class="panel">
-        <div class="panel-wrapper">
-          <button id="btnLeft">
-            <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000">
-              <path d="M560.67-240 320-480.67l240.67-240.66L608-674 414.67-480.67 608-287.33 560.67-240Z" />
-            </svg>
-          </button>
-          <button id="btnRight">
-            <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000">
-              <path d="M521.33-480.67 328-674l47.33-47.33L616-480.67 375.33-240 328-287.33l193.33-193.34Z" />
-            </svg>
-          </button>
+
+      <div id="bottomControls" class="bottomControls">
+        <div>
+          <a href="#" onclick="openPopup('help')">Help</a>
+          <a href="#" onclick="openPopup('legal')">Legal notice</a>
+          <a href="#" onclick="openPopup('privacy')">Privacy policy</a>
         </div>
-        <div class="panel-wrapper">
-          <button id="btnJump">
-            <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000">
-              <path d="M480-545.33 287.33-352.67 240-400l240-240 240 240-47.33 47.33L480-545.33Z" />
-            </svg>
-          </button>
-          <button id="btnThrow">
-            <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000">
-              <path
-                d="M598.67-80q-124.34-50-198.84-159.33-74.5-109.34-74.5-243.34 0-96.33 40-182.5 40-86.16 113.34-148.16H321.33V-880h277.34v277.33H532v-168.66q-66.33 53-103.17 128.16Q392-568 392-483.33q0 106 55.67 194.83 55.66 88.83 151 135.5v73Z" />
-            </svg>
-          </button>
+        <div>
+          <a id="startLevel" class="button" onclick="level1Screen()">START</a>
+        </div>
+        <div>
+          <svg
+            id="muted"
+            class="svgIcons"
+            onclick="muteSounds()"
+            xmlns="http://www.w3.org/2000/svg"
+            height="40px"
+            viewBox="0 -960 960 960"
+            width="40px"
+            fill="#ffffff">
+            <path
+              d="M806-56 677.67-184.33q-27 18.66-58 32.16-31 13.5-64.34 21.17v-68.67q20-6.33 38.84-13.66 18.83-7.34 35.5-19l-154.34-155V-160l-200-200h-160v-240H262L51.33-810.67 98.67-858l754.66 754L806-56Zm-26.67-232-48-48q19-33 28.17-69.67 9.17-36.66 9.17-75.33 0-100-58.34-179-58.33-79-155-102.33V-831q124 28 202 125.5t78 224.5q0 51.67-14.16 100.67-14.17 49-41.84 92.33Zm-134-134-90-90v-130q47 22 73.5 66t26.5 96q0 15-2.5 29.5t-7.5 28.5Zm-170-170-104-104 104-104v208Z" />
+          </svg>
+          <svg
+            id="notMuted"
+            class="svgIcons"
+            onclick="muteSounds()"
+            xmlns="http://www.w3.org/2000/svg"
+            height="40px"
+            viewBox="0 -960 960 960"
+            width="40px"
+            fill="#ffffff">
+            <path
+              d="M560-131v-68.67q94.67-27.33 154-105 59.33-77.66 59.33-176.33 0-98.67-59-176.67-59-78-154.33-104.66V-831q124 28 202 125.5T840-481q0 127-78 224.5T560-131ZM120-360v-240h160l200-200v640L280-360H120Zm426.67 45.33v-332Q599-628 629.5-582T660-480q0 55-30.83 100.83-30.84 45.84-82.5 64.5Z" />
+          </svg>
+          <svg
+            id="startFullscreen"
+            onclick="fullscreen()"
+            class="svgIcons"
+            xmlns="http://www.w3.org/2000/svg"
+            height="40px"
+            viewBox="0 -960 960 960"
+            width="40px"
+            fill="#ffffff">
+            <path
+              d="M120-120v-195.33h66.67v128.66h128.66V-120H120Zm524.67 0v-66.67h128.66v-128.66H840V-120H644.67ZM120-644.67V-840h195.33v66.67H186.67v128.66H120Zm653.33 0v-128.66H644.67V-840H840v195.33h-66.67Z" />
+          </svg>
+
+          <svg
+            id="exitFullscreen"
+            onclick="fullscreen()"
+            class="svgIcons d-none"
+            xmlns="http://www.w3.org/2000/svg"
+            height="40px"
+            viewBox="0 -960 960 960"
+            width="40px"
+            fill="#ffffff">
+            <path
+              d="M248.67-120v-128.67H120v-66.66h195.33V-120h-66.66Zm396 0v-195.33H840v66.66H711.33V-120h-66.66ZM120-644.67v-66.66h128.67V-840h66.66v195.33H120Zm524.67 0V-840h66.66v128.67H840v66.66H644.67Z" />
+          </svg>
+
+          <svg
+            id="musicNotMuted"
+            class="svgIcons"
+            onclick="muteMusic()"
+            xmlns="http://www.w3.org/2000/svg"
+            height="40px"
+            viewBox="0 -960 960 960"
+            width="40px"
+            fill="#ffffff">
+            <path
+              d="M395.33-120q-64 0-108.66-44.67Q242-209.33 242-273.33T286.67-382q44.66-44.67 108.66-44.67 26.34 0 47.84 7.17 21.5 7.17 38.83 20.17V-840h236v143.33H548.67v423.34q0 64-44.67 108.66Q459.33-120 395.33-120Z" />
+          </svg>
+          <svg
+            style="display: none"
+            id="musicMuted"
+            class="svgIcons"
+            onclick="muteMusic()"
+            xmlns="http://www.w3.org/2000/svg"
+            height="40px"
+            viewBox="0 -960 960 960"
+            width="40px"
+            fill="#ffffff">
+            <path
+              d="M801.33-56 56.67-800.67 104-848l744.67 744.67L801.33-56ZM550.67-496 484-562.67V-840h236v143.33H550.67V-496ZM397.33-120q-64 0-108.66-44.67Q244-209.33 244-273.33T288.67-382q44.66-44.67 108.66-44.67 26.34 0 47.84 7.17 21.5 7.17 38.83 20.17V-468l66.67 66.67v128q0 64-44.67 108.66Q461.33-120 397.33-120Z" />
+          </svg>
         </div>
       </div>
     </div>
-    <div class="bottomControls">
-      <div>
-        <a href="#" onclick="openPopup('help')">Help</a>
-        <a href="#" onclick="openPopup('legal')">Legal notice</a>
-        <a href="#" onclick="openPopup('privacy')">Privacy policy</a>
-      </div>
-      <div>
-        <a id="startLevel" class="button" onclick="level1Screen()">START</a>
-      </div>
-      <div>
-        <svg
-          id="muted"
-          class="svgIcons"
-          onclick="muteSounds()"
-          xmlns="http://www.w3.org/2000/svg"
-          height="40px"
-          viewBox="0 -960 960 960"
-          width="40px"
-          fill="#ffffff">
-          <path
-            d="M806-56 677.67-184.33q-27 18.66-58 32.16-31 13.5-64.34 21.17v-68.67q20-6.33 38.84-13.66 18.83-7.34 35.5-19l-154.34-155V-160l-200-200h-160v-240H262L51.33-810.67 98.67-858l754.66 754L806-56Zm-26.67-232-48-48q19-33 28.17-69.67 9.17-36.66 9.17-75.33 0-100-58.34-179-58.33-79-155-102.33V-831q124 28 202 125.5t78 224.5q0 51.67-14.16 100.67-14.17 49-41.84 92.33Zm-134-134-90-90v-130q47 22 73.5 66t26.5 96q0 15-2.5 29.5t-7.5 28.5Zm-170-170-104-104 104-104v208Z" />
-        </svg>
-        <svg
-          id="notMuted"
-          class="svgIcons"
-          onclick="muteSounds()"
-          xmlns="http://www.w3.org/2000/svg"
-          height="40px"
-          viewBox="0 -960 960 960"
-          width="40px"
-          fill="#ffffff">
-          <path
-            d="M560-131v-68.67q94.67-27.33 154-105 59.33-77.66 59.33-176.33 0-98.67-59-176.67-59-78-154.33-104.66V-831q124 28 202 125.5T840-481q0 127-78 224.5T560-131ZM120-360v-240h160l200-200v640L280-360H120Zm426.67 45.33v-332Q599-628 629.5-582T660-480q0 55-30.83 100.83-30.84 45.84-82.5 64.5Z" />
-        </svg>
-        <svg
-          onclick="fullscreen()"
-          class="svgIcons"
-          xmlns="http://www.w3.org/2000/svg"
-          height="40px"
-          viewBox="0 -960 960 960"
-          width="40px"
-          fill="#ffffff">
-          <path
-            d="M120-120v-195.33h66.67v128.66h128.66V-120H120Zm524.67 0v-66.67h128.66v-128.66H840V-120H644.67ZM120-644.67V-840h195.33v66.67H186.67v128.66H120Zm653.33 0v-128.66H644.67V-840H840v195.33h-66.67Z" />
-        </svg>
-        <svg
-          id="musicNotMuted"
-          class="svgIcons"
-          onclick="muteMusic()"
-          xmlns="http://www.w3.org/2000/svg"
-          height="40px"
-          viewBox="0 -960 960 960"
-          width="40px"
-          fill="#ffffff">
-          <path
-            d="M395.33-120q-64 0-108.66-44.67Q242-209.33 242-273.33T286.67-382q44.66-44.67 108.66-44.67 26.34 0 47.84 7.17 21.5 7.17 38.83 20.17V-840h236v143.33H548.67v423.34q0 64-44.67 108.66Q459.33-120 395.33-120Z" />
-        </svg>
-        <svg
-          style="display: none"
-          id="musicMuted"
-          class="svgIcons"
-          onclick="muteMusic()"
-          xmlns="http://www.w3.org/2000/svg"
-          height="40px"
-          viewBox="0 -960 960 960"
-          width="40px"
-          fill="#ffffff">
-          <path
-            d="M801.33-56 56.67-800.67 104-848l744.67 744.67L801.33-56ZM550.67-496 484-562.67V-840h236v143.33H550.67V-496ZM397.33-120q-64 0-108.66-44.67Q244-209.33 244-273.33T288.67-382q44.66-44.67 108.66-44.67 26.34 0 47.84 7.17 21.5 7.17 38.83 20.17V-468l66.67 66.67v128q0 64-44.67 108.66Q461.33-120 397.33-120Z" />
-        </svg>
-      </div>
-    </div>
+    <!-- end div fullscreen -->
     <div class="portrait">
       <h2>
         Please,<br />

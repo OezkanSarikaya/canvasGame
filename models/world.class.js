@@ -1,4 +1,24 @@
+
+/**
+ * Represents the game world.
+ */
 class World {
+  /**
+   * @property {Character} character - The main character in the game.
+   * @property {Level} level - The level configuration.
+   * @property {HTMLCanvasElement} canvas - The canvas element where the game is drawn.
+   * @property {CanvasRenderingContext2D} ctx - The rendering context of the canvas.
+   * @property {Keyboard} keyboard - The keyboard input handler.
+   * @property {number} camera_x - The x position of the camera.
+   * @property {StatusBar} statusBar - The status bar of the game.
+   * @property {AmmoBar} ammoBar - The ammo bar of the game.
+   * @property {CoinBar} coinBar - The coin bar of the game.
+   * @property {EndbossBar} endbossBar - The endboss health bar.
+   * @property {Array<ThrowableObject>} throwableObjects - The array of throwable objects.
+   * @property {Array<Bottles>} bottles - The array of bottles.
+   * @property {Array<Coins>} coins - The array of coins.
+   */
+
   character = new Character();
   level = level;
   canvas;
@@ -13,6 +33,11 @@ class World {
   bottles = [];
   coins = [];
 
+  /**
+   * Creates an instance of World.
+   * @param {HTMLCanvasElement} canvas - The canvas element where the game is drawn.
+   * @param {Keyboard} keyboard - The keyboard input handler.
+   */
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
@@ -22,9 +47,11 @@ class World {
     this.run();
   }
 
+  /**
+   * Sets the world properties for the character and enemies.
+   */
   setWorld() {
     this.character.world = this;
-    // Each enemy can read x position of character (needed for follow function)
     for (let i = 0; i < this.level.enemies.length; i++) {
       this.level.enemies[i].characterX = this.character.x;
     }
@@ -33,12 +60,18 @@ class World {
     }
   }
 
+  /**
+   * Clears all intervals in the game.
+   */
   clearAllIntervals() {
     for (let i = 1; i < 9999; i++) {
       window.clearInterval(i);
     }
   }
 
+  /**
+   * Starts the main game loop.
+   */
   run() {
     this.drawBottles(20);
     this.drawCoins(10);
@@ -54,6 +87,10 @@ class World {
     }, 1000 / 20);
   }
 
+  /**
+   * Draws the specified number of bottles in the game.
+   * @param {number} amount - The number of bottles to draw.
+   */
   drawBottles(amount) {
     for (let i = 0; i < amount; i++) {
       let bottle = new Bottles();
@@ -61,6 +98,10 @@ class World {
     }
   }
 
+  /**
+   * Draws the specified number of coins in the game.
+   * @param {number} amount - The number of coins to draw.
+   */
   drawCoins(amount) {
     let xPosition = 50 + Math.random() * 600;
     xPosition = Math.trunc(xPosition / 80) * 40;
@@ -71,6 +112,14 @@ class World {
     this.setCoinsArc(amount, x, y, speedY, acceleration);
   }
 
+  /**
+   * Sets the arc of coins in the game.
+   * @param {number} amount - The number of coins.
+   * @param {number} x - The starting x position.
+   * @param {number} y - The starting y position.
+   * @param {number} speedY - The initial speed in the y direction.
+   * @param {number} acceleration - The acceleration in the y direction.
+   */
   setCoinsArc(amount, x, y, speedY, acceleration) {
     for (let i = 0; i < amount; i++) {
       x += 40;
@@ -81,6 +130,9 @@ class World {
     }
   }
 
+  /**
+   * Checks if throw objects are triggered by the keyboard input.
+   */
   checkThrowObjects() {
     if (this.keyboard.D && this.character.ammo > 0) {
       let bottle = new ThrowableObject(this.character.x + 30, this.character.y + 120, this.character.otherDirection);
@@ -90,6 +142,9 @@ class World {
     }
   }
 
+  /**
+   * Checks if any enemies are hit by throwable objects.
+   */
   checkHit() {
     this.level.enemies.forEach((enemy) => {
       this.throwableObjects.forEach((bottle) => {
@@ -102,6 +157,9 @@ class World {
     });
   }
 
+  /**
+   * Checks for collisions between the character and enemies.
+   */
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
@@ -116,6 +174,9 @@ class World {
     });
   }
 
+  /**
+   * Checks if the character collects any bottles.
+   */
   checkCollect() {
     for (let i = 0; i < this.bottles.length; i++) {
       const enemy = this.bottles[i];
@@ -127,6 +188,9 @@ class World {
     }
   }
 
+  /**
+   * Checks if the character collects any coins.
+   */
   collectCoins() {
     for (let i = 0; i < this.coins.length; i++) {
       const enemy = this.coins[i];
@@ -137,13 +201,16 @@ class World {
         if (this.character.coins == 10) {
           this.character.coins -= 10;
           this.character.ammo += 10;
-          soundsMuted ? (bottlesBonus.muted = true) : (bottlesBonus.muted = false) ;
+          soundsMuted ? (bottlesBonus.muted = true) : (bottlesBonus.muted = false);
           bottlesBonus.play();
         }
       }
     }
   }
-  
+
+  /**
+   * Animates the sunrise effect in the game.
+   */
   sunrise() {
     if (gameLevel == 1 || gameLevel == 3) {
       let saturate = -this.level.backgroundObjects[1].y + 400;
@@ -157,6 +224,9 @@ class World {
     }
   }
 
+  /**
+   * Animates the sunset effect in the game.
+   */
   sunset() {
     if (gameLevel == 2) {
       let saturate = -this.level.backgroundObjects[1].y + 400;
@@ -170,6 +240,9 @@ class World {
     }
   }
 
+  /**
+   * Draws the fixed objects in the game (status bars, text, etc.).
+   */
   drawFixedObjects() {
     this.addToMap(this.statusBar);
     this.addToMap(this.ammoBar);
@@ -180,13 +253,18 @@ class World {
     this.ctx.fillText(this.character.ammo, 60, 60);
     this.ctx.fillText(this.character.energy, 155, 60);
     this.ctx.fillText(this.character.coins, 255, 60);
-    if (gameLevel==4) {gameLevel--;}
+    if (gameLevel == 4) {
+      gameLevel--;
+    }
     this.ctx.fillText("Level: " + gameLevel, 800, 60);
     if (this.level.enemies[0]) {
       this.ctx.fillText(this.level.enemies[0].energy, 1000, 60); // Endboss
     }
   }
 
+  /**
+   * Draws the dynamic objects to the game map.
+   */
   drawObjectsToMap() {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.objects);
@@ -197,6 +275,9 @@ class World {
     this.addObjectsToMap(this.throwableObjects);
   }
 
+  /**
+   * Draws the entire game scene.
+   */
   draw() {
     this.ctx.reset();
     this.ctx.translate(this.camera_x, 0);
@@ -213,12 +294,20 @@ class World {
     });
   }
 
+  /**
+   * Adds multiple objects to the map.
+   * @param {Array<Object>} objects - The objects to be added to the map.
+   */
   addObjectsToMap(objects) {
     objects.forEach((o) => {
       this.addToMap(o);
     });
   }
 
+  /**
+   * Adds a single object to the map.
+   * @param {Object} mo - The movable object to be added.
+   */
   addToMap(mo) {
     if (mo.otherDirection) {
       this.flipImage(mo);
@@ -230,6 +319,10 @@ class World {
     }
   }
 
+  /**
+   * Flips the image horizontally.
+   * @param {Object} mo - The movable object to be flipped.
+   */
   flipImage(mo) {
     this.ctx.save();
     this.ctx.translate(mo.width, 0);
@@ -237,6 +330,10 @@ class World {
     mo.x = mo.x * -1;
   }
 
+  /**
+   * Flips the image back to its original orientation.
+   * @param {Object} mo - The movable object to be flipped back.
+   */
   flipImageBack(mo) {
     mo.x = mo.x * -1;
     this.ctx.restore();

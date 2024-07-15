@@ -1,4 +1,30 @@
+/**
+ * Represents the end boss in the game, extending from MoveableObject.
+ * @extends MoveableObject
+ */
 class Endboss extends MoveableObject {
+  /**
+   * @property {number} height - The height of the end boss.
+   * @property {number} width - The width of the end boss.
+   * @property {number} y - The y-coordinate of the end boss.
+   * @property {number} x - The x-coordinate of the end boss.
+   * @property {number} energy - The energy level of the end boss.
+   * @property {number} speed - The speed of the end boss.
+   * @property {Object} offset - The collision offset of the end boss.
+   * @property {number} offset.top - The top offset.
+   * @property {number} offset.left - The left offset.
+   * @property {number} offset.right - The right offset.
+   * @property {number} offset.bottom - The bottom offset.
+   * @property {Array<string>} IMAGES_WALKING - Array of image paths for walking animation.
+   * @property {Array<string>} IMAGES_ALERT - Array of image paths for alert animation.
+   * @property {Array<string>} IMAGES_ATTACK - Array of image paths for attack animation.
+   * @property {Array<string>} IMAGES_HURT - Array of image paths for hurt animation.
+   * @property {Array<string>} IMAGES_DEAD - Array of image paths for dead animation.
+   * @property {string} YOU_WIN - Image path for the 'You Win' screen.
+   * @property {string} level1 - Image path for the level 1 end screen.
+   * @property {string} level2 - Image path for the level 2 end screen.
+   * @property {string} level3 - Image path for the level 3 end screen.
+   */
   height = 405;
   width = 348;
   y = 280;
@@ -58,6 +84,11 @@ class Endboss extends MoveableObject {
     bottom: 40,
   };
 
+  /**
+   * Creates an instance of Endboss and initializes its properties.
+   * @param {number} speed - The speed of the end boss.
+   * @param {number} energy - The energy level of the end boss.
+   */
   constructor(speed, energy) {
     super().loadImage(this.IMAGES_WALKING[0]);
     this.loadImages(this.IMAGES_WALKING);
@@ -70,6 +101,10 @@ class Endboss extends MoveableObject {
     this.speed = speed;
   }
 
+  /**
+   * Displays the end screen based on the game level.
+   * @param {number} gameLevel - The current game level.
+   */
   displayEndScreen(gameLevel) {
     switch (gameLevel) {
       case 1:
@@ -84,11 +119,13 @@ class Endboss extends MoveableObject {
       case 4:
         this.loadImage(this.YOU_WIN);
         win = true;
-        // gameLevel = 3;
         break;
     }
   }
 
+  /**
+   * Ends the current level and displays the appropriate end screen.
+   */
   endLevel() {
     setTimeout(() => {
       this.height = 650;
@@ -106,8 +143,10 @@ class Endboss extends MoveableObject {
     }, 1000);
   }
 
+  /**
+   * Animates the end boss based on its state and the distance to the character.
+   */
   animate() {
-    // Speed for walking Animation
     let follow = false;
     let awake = false;
     let distance;
