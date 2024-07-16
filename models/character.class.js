@@ -261,11 +261,10 @@ class Character extends MoveableObject {
 
   /**
    * Starts the animation and movement of the character.
+   * Different speed for animation and movement
    */
   animate() {
-    // Speed for walking Animation
     this.animateCharacter();
-    // Speed for move character
     this.moveCharacter();
   }
 }

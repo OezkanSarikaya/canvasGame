@@ -1,5 +1,9 @@
 let level;
 
+/**
+ * Init gamelevel and add its components
+ * @param {number} gameLevel 
+ */
 function initLevel(gameLevel) {
   if (gameLevel == 1) {
     level = new Level(

@@ -134,50 +134,60 @@ class Endboss extends MoveableObject {
       this.y = 20;
       this.otherDirection = false;
       start_game_over.pause();
-      soundsMuted ? mariachi.muted = true : mariachi.play();
+      soundsMuted ? (mariachi.muted = true) : mariachi.play();
       clearAllIntervals();
       if (gameLevel <= 3) {
         gameLevel++;
       }
-
       this.displayEndScreen(gameLevel);
     }, 1000);
   }
 
+/**
+ * Endboss Animation depending on its state
+ * @param {boolean} follow - Follow the Character or not (remain standing)
+ * @param {boolean} awake - Once triggered Endbos Attach when X position auf Character is exceeded
+ * @param {number} distance - Distance between Endboss and Character
+ * @returns - follow 
+ */
+  endbosssAnimation(follow, awake, distance) {
+    if (this.isDead()) {
+      follow = false;
+      soundsMuted ? (endboss_die.muted = true) : endboss_die.play();
+      this.playAnimationOnce(this.IMAGES_DEAD);
+      this.endLevel();
+    } else if (this.isHurt()) {
+      follow = false;
+      soundsMuted ? (endboss_hurt.muted = true) : (endboss_hurt.muted = false);
+      endboss_hurt.play();
+      this.playAnimation(this.IMAGES_HURT);
+    } else if (awake && distance <= 900 && distance > 600) {
+      follow = true;
+      this.playAnimation(this.IMAGES_WALKING);
+    } else if (awake && distance <= 600 && distance > 400) {
+      follow = true;
+      this.playAnimation(this.IMAGES_ALERT);
+    } else if (awake && distance <= 400) {
+      follow = true;
+      this.playAnimation(this.IMAGES_ATTACK);
+    }
+    return follow;
+  }
+
   /**
-   * Animates the end boss based on its state and the distance to the character.
+   * Starts Animation and Moves Interval for the end boss based on its state and the distance to the character.
    */
   animate() {
     let follow = false;
     let awake = false;
     let distance;
-    let endBoss = setInterval(() => {
+    setInterval(() => {
       distance = Math.abs(parseInt(this.characterX) - parseInt(this.x));
       if (!awake && parseInt(this.characterX) > 1900) {
         awake = true;
       }
-      if (this.isDead()) {
-        follow = false;
-        soundsMuted ? (endboss_die.muted = true) : endboss_die.play();
-        this.playAnimationOnce(this.IMAGES_DEAD);
-        this.endLevel();
-      } else if (this.isHurt()) {
-        follow = false;
-        soundsMuted ? (endboss_hurt.muted = true) : endboss_hurt.muted = true;
-        endboss_hurt.play();
-        this.playAnimation(this.IMAGES_HURT);
-      } else if (awake && distance <= 900 && distance > 600) {
-        follow = true;
-        this.playAnimation(this.IMAGES_WALKING);
-      } else if (awake && distance <= 600 && distance > 400) {
-        follow = true;
-        this.playAnimation(this.IMAGES_ALERT);
-      } else if (awake && distance <= 400) {
-        follow = true;
-        this.playAnimation(this.IMAGES_ATTACK);
-      }
+      follow = this.endbosssAnimation(follow, awake, distance);
     }, 200);
-
     setInterval(() => {
       if (follow) {
         this.followCharacter(this.speed, this.characterX);

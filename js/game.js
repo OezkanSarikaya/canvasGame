@@ -109,9 +109,13 @@ function startGame() {
   if (soundsMuted) {
     start_game_over.pause();
   } else {
-    if (gameLevel == 1) {
-      rooster_crow.volume = 0.5;
-      rooster_crow.play();
+    switch (gameLevel) {
+      case 1:
+        rooster_crow.play();
+        break;
+      case 3:
+        crickets.play();
+        break;
     }
     mariachi.pause();
     if (!musicMuted && level) {
@@ -162,6 +166,10 @@ function closeFullscreen() {
   document.getElementById("exitFullscreen").classList.add("d-none");
 }
 
+/**
+ * Adds touch listeners for the specified listener type.
+ */
+function touchListener() {
 document.getElementById("btnLeft").addEventListener("touchstart", (e) => {
   e.preventDefault();
   keyboard.LEFT = true;
@@ -201,13 +209,16 @@ document.getElementById("btnThrow").addEventListener("touchend", (e) => {
   e.preventDefault();
   keyboard.D = false;
 });
+}
 
+/**
+ * Adds fullscreen Listener for exit fullscreen
+ */
 document.addEventListener("fullscreenchange", function () {
   if (!document.fullscreenElement) {
     closeFullscreen();
   }
 });
-
 
 /**
  * Adds keyboard event listeners for the specified listener type.
@@ -231,8 +242,13 @@ function keyboardListener(listener) {
   });
 }
 
+touchListener();
 keyboardListener("keydown");
 keyboardListener("keyup");
+
+/**
+ * Keylistener for Escape for exit fullscreen
+ */
 
 window.addEventListener("keydown", (e) => {
   if (e.keyCode == 27) {
