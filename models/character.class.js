@@ -168,7 +168,7 @@ class Character extends MoveableObject {
         this.playAnimationOnce(this.IMAGES_DEAD);
         this.gameOver();
       } else if (this.isHurt()) {
-        soundsMuted ? (hurt.muted = true) : hurt.play();
+        soundsMuted ? (hurt.pause()) : hurt.play();
         sleepTimer = null;
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.isAboveGround()) {

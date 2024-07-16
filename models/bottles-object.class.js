@@ -1,10 +1,23 @@
+/**
+ * Represents a bottle object in the game that can be collected.
+ * Extends the DrawableObject class.
+ */
 class Bottles extends DrawableObject {
+  /**
+   * The offset values for the bottle's collision box.
+   * @type {{top: number, left: number, right: number, bottom: number}}
+   */
   offset = {
     top: 14,
     left: 14,
     right: 14,
     bottom: 10,
   };
+
+  /**
+   * Creates an instance of a Bottles object.
+   * Loads a random bottle image and initializes the bottle's position and size.
+   */
   constructor() {
     let xPosition;
     if (Math.random() * 10 > 5) {
@@ -19,3 +32,4 @@ class Bottles extends DrawableObject {
     this.x = Math.trunc(xPosition / this.width) * 90;
   }
 }
+

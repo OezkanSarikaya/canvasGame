@@ -1,4 +1,3 @@
-
 /**
  * Represents the game world.
  */
@@ -212,7 +211,7 @@ class World {
    * Animates the sunrise effect in the game.
    */
   sunrise() {
-    if (gameLevel == 1 || gameLevel == 3) {
+    if ((gameLevel == 1 || gameLevel == 3) && this.character.energy > 0) {
       let saturate = -this.level.backgroundObjects[1].y + 400;
       if (this.level.backgroundObjects[1].y > 50) {
         this.level.backgroundObjects[1].x += 0.5;
@@ -228,7 +227,7 @@ class World {
    * Animates the sunset effect in the game.
    */
   sunset() {
-    if (gameLevel == 2) {
+    if ((gameLevel == 2) ) {
       let saturate = -this.level.backgroundObjects[1].y + 400;
       if (this.level.backgroundObjects[1].y >= 80 && this.level.backgroundObjects[1].y < 320) {
         this.level.backgroundObjects[1].x += 0.5;

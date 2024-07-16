@@ -17,6 +17,7 @@ rooster_crow = new Audio("./audio/rooster-crows.mp3");
 
 // Character
 walking_sound = new Audio("./audio/walking.mp3");
+walking_sound.volume = 1.0;
 jump_sound = new Audio("./audio/jump.mp3");
 hurt = new Audio("./audio/hurt.mp3");
 die = new Audio("./audio/die.mp3");

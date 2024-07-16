@@ -103,6 +103,7 @@ body {
   background-position: center center;
   height: 100vh;
   margin: 0;
+  padding:0;
 }
 
 .panel button {
@@ -133,6 +134,24 @@ body {
   height: 40px;
 }
 
+.panel {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.topPanel {
+  display: flex;
+  justify-content: center;
+}
+.panel-wrapper {
+  padding: 16px;
+  display: flex;
+  gap: 16px;
+}
+
 span {
   font-family: "Boogaloo";
   font-size: 36px;
@@ -151,7 +170,9 @@ a {
 
 h1 {
   font-family: "Holtwood One SC";
-  font-size: 64px;
+  /* font-size: 64px; */
+  font-size: 4vw;
+   
   opacity: 0.8;
   text-shadow: 5px 5px rgba(255, 255, 255, 0.9);
 }
@@ -238,57 +259,78 @@ canvas {
   background-size: 100% 100%;
 }
 
-.portrait {
-  display: none;
-}
-
+.portrait,
 #hud {
   display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-}
-
-.panel {
-  width: 100vw;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 16px;
-}
-
-.topPanel {
-  display: flex;
-  justify-content: center;
-}
-.panel-wrapper {
-  padding: 16px;
-  display: flex;
-  gap: 16px;
 }
 
 /*///////////////////////////////////////
 ///       MEDIA QUERIES              ///
 ///////////////////////////////////////*/
 
-@media only screen and (max-width: 1080px) {
-  h1 {
+@media all and (display-mode: fullscreen) {
+  /* every CSS goes here that you want 
+  to apply or alter in the fullscreen mode*/
+
+  #hud {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .panel,
+  #bottomControls {
     display: none;
   }
+
+  .topPanel {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5%;
+  }
+  .panel-wrapper {
+    padding: 16px;
+    display: flex;
+    gap: 16px;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  #bottomControls {
+    flex-direction: column-reverse;
+  }
+}
+
+@media only screen and (max-width: 1180px) {
   canvas {
     width: 100%;
     border-radius: unset;
   }
+  h1 {display: none;}
 }
 
 @media only screen and (max-height: 720px) {
+  #hud {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+  }
 
 
   h1 {
@@ -309,13 +351,14 @@ canvas {
   border-radius: unset;
 }
 
-@media (orientation: portrait) {
+@media (orientation: portrait) and (max-width: 650px) {
   canvas
   {
     display: none;
   }
   #hud {
     display: none;}
+    
   .portrait {
     display: flex;
     flex-direction: column;

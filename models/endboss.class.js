@@ -134,11 +134,12 @@ class Endboss extends MoveableObject {
       this.y = 20;
       this.otherDirection = false;
       start_game_over.pause();
-      soundsMuted || musicMuted ? mariachi.pause() : mariachi.play();
+      soundsMuted ? mariachi.muted = true : mariachi.play();
       clearAllIntervals();
       if (gameLevel <= 3) {
         gameLevel++;
       }
+
       this.displayEndScreen(gameLevel);
     }, 1000);
   }
@@ -164,17 +165,18 @@ class Endboss extends MoveableObject {
         follow = false;
         soundsMuted ? (endboss_hurt.muted = true) : endboss_hurt.play();
         this.playAnimation(this.IMAGES_HURT);
-      } else if (awake && distance <= 900 && distance > 500) {
+      } else if (awake && distance <= 900 && distance > 600) {
         follow = true;
         this.playAnimation(this.IMAGES_WALKING);
-      } else if (awake && distance <= 500 && distance > 200) {
+      } else if (awake && distance <= 600 && distance > 400) {
         follow = true;
         this.playAnimation(this.IMAGES_ALERT);
-      } else if (awake && distance <= 200) {
+      } else if (awake && distance <= 400) {
         follow = true;
         this.playAnimation(this.IMAGES_ATTACK);
       }
     }, 200);
+
     setInterval(() => {
       if (follow) {
         this.followCharacter(this.speed, this.characterX);
