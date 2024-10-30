@@ -57,6 +57,7 @@
   max-height: 720px;
   overflow-y: auto;
 }
+#privacy a {font-size:16px;color:black;}
 
 #help table {
   border-collapse: collapse;
